@@ -1,24 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
+import Button from 'react-bootstrap/Button';
+import Container from 'react-bootstrap/Container';
+import ButtonGroup from 'react-bootstrap/ButtonGroup';
+import {
+  BrowserRouter as Router,
+  Swtich,
+  Routes,
+  Link,
+} from 'react-router-dom';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Container fluid>
+      {/* Insert logo as image in center of page */}
+      <ButtonGroup aria-label="login and signup">
+        <Button size="lg" variant="secondary">
+          Login
+        </Button>
+        <Button size="lg" variant="secondary">
+          Signup
+        </Button>
+      </ButtonGroup>
+    </Container>
   );
 }
 
