@@ -21,9 +21,20 @@ type Job {
     link: String
 }
 
+input JobData {
+    dateApplied: String
+    datePosted: String
+    title: String
+    company: String
+    appStatus: String
+    salary: Integer
+    isRemote: Boolean
+    link: String
+}
+
 type Auth {
     token: ID
-    
+    user: User
 }
 
 type Query {
@@ -31,7 +42,9 @@ type Query {
 }
 
 type Mutation {
-    login: User
+    login(email: String!, password: String!): Auth
+    addUser(username: String!, email: String!, password: String!): Auth
+    addJob(jobData: JobData!): User
 }
 `;
 // no password for user in here because it should be inaccessible from the frontend

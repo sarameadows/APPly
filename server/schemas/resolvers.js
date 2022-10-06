@@ -38,8 +38,40 @@ const resolvers = {
             }
 
             // signToken() runs here
+            // will return token with user
             return user;
+        },
+
+        addUser: async (_, args) => {
+            const user = await User.create(args);
+
+            // signToken() runs here
+            // will return token with user
+            return user;
+        },
+
+        addJob: async (_, args, context) => {
+            // will use context
+            if (context.user) {
+                const {_id} = context.user;
+                const {jobData} = args;
+
+                const user = await User.findOneAndUpdate(
+                    {_id},
+                    {$addToSet: {jobsSaved: jobData}},
+                    {new: true}
+                );
+
+                return user;
+            }
+
+            // else
+            throw new Error('Not logged in.');
         }
+        // removeJob
+        // updateJob
+        // updateUser?
+        // removeUser?
     }
 };
 

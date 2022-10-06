@@ -1,5 +1,6 @@
 const {Schema} = require('mongoose');
 
+// chose to make jobs only contained in subdocuments of users because they aren't publically visible
 const jobSchema = new Schema(
     {
         title: {
