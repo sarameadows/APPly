@@ -108,8 +108,60 @@ const resolvers = {
 
                 return user;
             }
+
+            throw new Error('Not logged in.');
+        },
+
+        removeJob: async (_, args, context) => {
+            if (context.user) {
+                const {_id} = context.user;
+                const {jobId} = args;
+
+                const user = await User.findOneAndUpdate(
+                    {_id},
+                    {$pull: {jobs: {jobId}}},
+                    {new: true}
+                );
+
+                return user;
+            }
+
+            throw new Error('Not logged in.');
+        },
+
+        removeLink: async (_, args, context) => {
+            if (context.user) {
+                const {_id} = context.user;
+                const {linkId} = args;
+
+                const user = await User.findOneAndUpdate(
+                    {_id},
+                    {$pull: {links: {linkId}}},
+                    {new: true}
+                );
+
+                return user;
+            }
+
+            throw new Error('Not logged in.');
+        },
+
+        removeNote: async (_, args, context) => {
+            if (context.user) {
+                const {_id} = context.user;
+                const {noteId} = args;
+
+                const user = await User.findOneAndUpdate(
+                    {_id},
+                    {$pull: {notes: {noteId}}},
+                    {new: true}
+                );
+
+                return user;
+            }
+
+            throw new Error('Not logged in.');
         }
-        // removeJob
         // updateJob
         // updateUser?
         // removeUser?

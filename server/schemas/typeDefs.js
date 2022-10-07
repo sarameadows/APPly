@@ -73,6 +73,9 @@ type Mutation {
     addJob(jobData: JobData!): User
     addLink(name: String!, link: String!): User
     addNote(title: String!, text: String!): User
+    removeJob(jobId: ID!): User
+    removeLink(linkId: ID!): User
+    removeNote(noteId: ID!): User
 }
 `;
 
