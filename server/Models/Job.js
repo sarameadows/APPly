@@ -1,4 +1,4 @@
-const { Schema, model } = require('mongoose');
+const { Schema } = require('mongoose');
 
 const jobSchema = new Schema(
     {
@@ -30,16 +30,12 @@ const jobSchema = new Schema(
             type: String,
             required: true,
         },
-        pay: {
-            type: String,
-            required: true,
-        },
         source: {
             type: String,
             required: true,
         },
         requirements: {
-            type: String,
+            type: [String],
             required: true,
         },
         applicationStatus: {
@@ -47,7 +43,7 @@ const jobSchema = new Schema(
             required: true,
         },
         benefits: {
-            type: String,
+            type: [String],
             required: false,
         },
         pay: {
@@ -57,6 +53,4 @@ const jobSchema = new Schema(
     }
 );
   
-const Job = model('Job', jobSchema);
-  
-module.exports = Job;
+module.exports = jobSchema;

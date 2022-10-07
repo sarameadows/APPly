@@ -1,4 +1,7 @@
 server/config
+client/src/App.js
+client/src/components
+client/src
 
 # Logs
 logs
