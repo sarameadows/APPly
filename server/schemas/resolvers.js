@@ -58,7 +58,7 @@ const resolvers = {
 
                 const user = await User.findOneAndUpdate(
                     {_id},
-                    {$addToSet: {jobsSaved: jobData}},
+                    {$addToSet: {jobs: jobData}},
                     {new: true}
                 );
 
@@ -67,6 +67,47 @@ const resolvers = {
 
             // else
             throw new Error('Not logged in.');
+        },
+
+        addLink: async (_, args, context) => {
+            if (context.user) {
+                const {_id} = context.user;
+                const {name, link} = args;
+                const newLink = {
+                    name: name,
+                    link: link
+                };
+
+                const user = await User.findOneAndUpdate(
+                    {_id},
+                    {$addToSet: {links: newLink}},
+                    {new: true}
+                );
+
+                return user;
+            }
+
+            // else
+            throw new Error('Not logged in.');
+        },
+
+        addNote: async (_, args, context) => {
+            if (context.user) {
+                const {_id} = context.user;
+                const {title, text} = args;
+                const newNote = {
+                    title: title,
+                    text: text
+                };
+
+                const user = await User.findOneAndUpdate(
+                    {_id},
+                    {$addToSet: {notes: newNote}},
+                    {new: true}
+                );
+
+                return user;
+            }
         }
         // removeJob
         // updateJob

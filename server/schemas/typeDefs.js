@@ -1,40 +1,66 @@
 const {gql} = require('apollo-server-express');
 
-// maybe the username is just displayed for the user to make the site feel personal?
+// may need to adjust requirements and benefits to represent an array...?
+    // will mark them as arrays for now but may need to change it
+
+// no password for user in here because it should be inaccessible from the frontend
 const typeDefs = gql`
 type User {
     _id: ID
     username: String
     email: String
-    jobsSaved: [Job]
+    jobs: [Job]
+    notes: [Note]
+    links: [Link]
 }
 
 type Job {
-    _id: ID
+    jobId: ID
     dateApplied: String
     datePosted: String
     title: String
     company: String
-    appStatus: String
-    salary: Integer
-    isRemote: Boolean
+    link: String
+    location: String
+    officeSetting: String
+    pay: String
+    source: String
+    applicationStatus: String
+    requirements: [String]
+    benefits: [String]
+}
+
+type Link {
+    linkId: ID
+    name: String
     link: String
 }
 
-input JobData {
-    dateApplied: String
-    datePosted: String
+type Note {
+    noteId: ID
     title: String
-    company: String
-    appStatus: String
-    salary: Integer
-    isRemote: Boolean
-    link: String
+    text: String
 }
 
 type Auth {
     token: ID
     user: User
+}
+
+input JobData {
+    jobId: ID!
+    dateApplied: String
+    datePosted: String
+    title: String
+    company: String
+    link: String
+    location: String
+    officeSetting: String
+    pay: String
+    source: String
+    applicationStatus: String
+    requirements: [String]
+    benefits: [String]
 }
 
 type Query {
@@ -45,11 +71,9 @@ type Mutation {
     login(email: String!, password: String!): Auth
     addUser(username: String!, email: String!, password: String!): Auth
     addJob(jobData: JobData!): User
+    addLink(name: String!, link: String!): User
+    addNote(title: String!, text: String!): User
 }
 `;
-// no password for user in here because it should be inaccessible from the frontend
-
-// appStatus = not yet applied, waiting for reply, etc.
-// could change appStatus, isRemote to use enum values (has to be one of a list)
 
 module.exports = typeDefs;
