@@ -1,8 +1,17 @@
 {
+  "name": "APPly-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "watch": "nodemon"
+  },
   "dependencies": {
     "apollo-server-express": "^3.10.2",
     "express": "^4.18.1",
     "graphql": "^16.6.0",
-    "jsonwebtoken": "^8.5.1"
+    "jsonwebtoken": "^8.5.1",
+    "nodemon": "^2.0.20"
   }
 }

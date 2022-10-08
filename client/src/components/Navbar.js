@@ -20,14 +20,33 @@ const NavBar = () => {
         <Navbar.Collapse id="navbar">
           <Nav className="me-auto">
             <Nav.Link href="/">Home</Nav.Link>
-            {loggedIn && <Nav.Link href="/logout">Logout</Nav.Link>}
-            <NavDropdown title="Resources" id="resources-dropdown">
-              {/* Need to have list of resource categories to map through */}
-            </NavDropdown>
-            <NavDropdown title={jobs.length < 1 ? 'Begin your search' : 'Continue your search'} id="site-dropdown">
-              <NavDropdown.Item href={/* LinkedIn */}>LinkedIn</NavDropdown.Item>
-              <NavDropdown.Item href={/* Indeed */}>Indeed</NavDropdown.Item>
-              <NavDropdown.Item href={/* Glassdoor */}>Glassdoor</NavDropdown.Item>
+            {loggedIn && (
+              <Nav.Link href="/" onClick={() => Auth.logout}>
+                Logout
+              </Nav.Link>
+            )}
+            <Nav.Link href="/resources">Resources</Nav.Link>
+            <NavDropdown
+              title={
+                jobs.length < 1 ? 'Begin your search' : 'Continue your search'
+              }
+              id="site-dropdown"
+            >
+              <NavDropdown.Item
+                href="https://www.linkedin.com/jobs/"
+                target="_blank"
+              >
+                LinkedIn
+              </NavDropdown.Item>
+              <NavDropdown.Item href="https://www.indeed.com/" target="_blank">
+                Indeed
+              </NavDropdown.Item>
+              <NavDropdown.Item
+                href="https://www.glassdoor.com/index.htm"
+                target="_blank"
+              >
+                Glassdoor
+              </NavDropdown.Item>
             </NavDropdown>
           </Nav>
         </Navbar.Collapse>
@@ -36,4 +55,4 @@ const NavBar = () => {
   );
 };
 
-export default Navbar;
+export default NavBar;

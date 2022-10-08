@@ -4,6 +4,7 @@
   align-items: center;
   flex-direction: column;
   height: 100vh;
+  overflow: hidden;
 }
 
 #splash-logo {
@@ -20,7 +21,7 @@
 #signup-btn {
   font-size: 4vh !important;
   background-color: var(--dark-blue);
-  color: var(--dark-blue);
+  color: var(--grey);
 }
 
 #login-btn {

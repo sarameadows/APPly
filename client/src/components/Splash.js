@@ -6,15 +6,11 @@ import './Splash.css';
 
 const Splash = () => {
   return (
-    <Container id="splash-container">
+    <Container fluid id="splash-container">
       <img id="splash-logo" src={MainLogo} alt="APPly logo" />
       <ButtonGroup id="splash-btn-group" aria-label="login and signup">
-        <Button id="login-btn" variant="secondary">
-          Login
-        </Button>
-        <Button id="signup-btn" variant="secondary">
-          Signup
-        </Button>
+        <Button id="login-btn">Login</Button>
+        <Button id="signup-btn">Signup</Button>
       </ButtonGroup>
     </Container>
   );
