@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './LoginModal.css'
 
-function SignUp() {
-    const [formState, setFormState] = useState({ name: '', email: '', message: '' });
-    const { username, password, email, github } = formState;
+function SignUp({ onClose }) {
+    const [formState, setFormState] = useState({ username: '', password: '', email: '', github: '' });
+    // const { username, password, email, github } = formState;
     
     function handleChange(e) {
         setFormState({...formState, [e.target.name]: e.target.value })
@@ -35,7 +35,7 @@ function SignUp() {
                         <label htmlFor="github">GitHub:</label>
                         <input type="text" defaultValue={formState.github} onChange={handleChange} name='github' />
                     </div>
-                    <button type='submit'>Submit</button>
+                    <button type='submit' onClick={onClose}>Submit</button>
                 </form>
             </div>
         </div>
