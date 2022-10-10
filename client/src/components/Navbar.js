@@ -10,8 +10,13 @@ import { Container } from 'react-bootstrap/Container';
 import { Nav } from 'react-bootstrap/Nav';
 import { Navbar } from 'react-bootstrap/Navbar';
 import { NavDropdown } from 'react-bootstrap/NavDropdown';
+import Auth from '../utils/auth';
+import { useQuery } from '@apollo/client';
+import { GET_ME } from '../utils/queries';
 
 const NavBar = () => {
+  const [data, loading] = useQuery(GET_ME);
+
   return (
     <Navbar bg="dark" expand="lg">
       <Container fluid>
@@ -20,7 +25,7 @@ const NavBar = () => {
         <Navbar.Collapse id="navbar">
           <Nav className="me-auto">
             <Nav.Link href="/">Home</Nav.Link>
-            {loggedIn && (
+            {Auth.loggedIn && (
               <Nav.Link href="/" onClick={() => Auth.logout}>
                 Logout
               </Nav.Link>
@@ -28,7 +33,9 @@ const NavBar = () => {
             <Nav.Link href="/resources">Resources</Nav.Link>
             <NavDropdown
               title={
-                jobs.length < 1 ? 'Begin your search' : 'Continue your search'
+                data.savedJobs.length < 1
+                  ? 'Begin your search'
+                  : 'Continue your search'
               }
               id="site-dropdown"
             >

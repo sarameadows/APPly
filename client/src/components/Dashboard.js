@@ -1,9 +1,12 @@
 import { useState, useEffect } from 'react';
 import { useQuery } from '@apollo/client';
 import { GET_ME } from '../utils/queries';
+import JobModal from './JobModal';
+import JobDetail from './JobDetail';
 import Spinner from 'react-bootstrap/Spinner';
 import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
+import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import CardHeader from 'react-bootstrap/esm/CardHeader';
 
@@ -13,6 +16,17 @@ const Dashboard = () => {
   const { jobs, setJobs } = useState();
 
   const { loading, data } = useQuery(GET_ME);
+
+  const [currentJob, setCurrentJob] = useState();
+
+  const ToggleDetailModal = (job, i) => {
+    setCurrentJob({ ...job, index: i });
+    setJobDetailModalOpen(!isJobDetailModalOpen);
+  };
+
+  const ToggleEntryModal = () => {
+    setJobEntryModalOpen(!isJobEntryModalOpen);
+  };
 
   let locationArr = [];
   let officeSettingArr = [];
@@ -80,6 +94,14 @@ const Dashboard = () => {
     } else if (data) {
       return (
         <div id="dashboard-container">
+          <div>
+            {isJobEntryModalOpen && <JobModal onClose={ToggleEntryModal} />}
+          </div>
+          <div>
+            {isJobDetailModalOpen && (
+              <JobDetail currentJob={currentJob} onClose={ToggleDetailModal} />
+            )}
+          </div>
           <div id="jobs-filter-bar">
             <DropdownButton
               className="filter-btn"
@@ -92,7 +114,7 @@ const Dashboard = () => {
                     as="button"
                     className="dropdown-btn"
                     key={id}
-                    onClock={() => filterLocations(location)}
+                    onClick={() => filterLocation(location)}
                   >
                     {location}
                   </Dropdown.Item>
@@ -110,7 +132,7 @@ const Dashboard = () => {
                     as="button"
                     className="dropdown-btn"
                     key={id}
-                    onClick={() => filterOfficeSettings(officeSetting)}
+                    onClick={() => filterOfficeSetting(officeSetting)}
                   >
                     {officeSetting}
                   </Dropdown.Item>
@@ -128,7 +150,7 @@ const Dashboard = () => {
                     as="button"
                     className="dropdown-btn"
                     key={id}
-                    onClick={() => filterSources(source)}
+                    onClick={() => filterSource(source)}
                   >
                     {source}
                   </Dropdown.Item>
@@ -153,14 +175,20 @@ const Dashboard = () => {
                 );
               })}
             </DropdownButton>
+            <Button onClick={ToggleEntryModal}>Enter a new job</Button>
           </div>
           <div id="jobs-container">
             {data.savedJobs.map((savedJob, jobId) => {
               return (
-                <Card>
+                <Card className="job-card" onClick={() => ToggleDetailModal}>
                   <Card.Body>
                     <Card.Title>{savedJob.title}</Card.Title>
                     <Card.Subtitle>{savedJob.company}</Card.Subtitle>
+                    <Card.Text>
+                      Location: {savedJob.location}
+                      Source: {savedJob.source}
+                    </Card.Text>
+                    <Card.Link href={savedJob.link}>Direct Link</Card.Link>
                   </Card.Body>
                 </Card>
               );
