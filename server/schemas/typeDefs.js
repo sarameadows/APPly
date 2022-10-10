@@ -14,7 +14,7 @@ type User {
 }
 
 type Job {
-    jobId: ID
+    _id: ID
     dateApplied: String
     datePosted: String
     title: String
@@ -30,13 +30,13 @@ type Job {
 }
 
 type Link {
-    linkId: ID
+    _id: ID
     name: String
     link: String
 }
 
 type Note {
-    noteId: ID
+    _id: ID
     title: String
     text: String
 }
@@ -47,7 +47,6 @@ type Auth {
 }
 
 input JobData {
-    jobId: ID!
     dateApplied: String
     datePosted: String
     title: String
