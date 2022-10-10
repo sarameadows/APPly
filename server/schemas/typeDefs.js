@@ -1,7 +1,6 @@
 const {gql} = require('apollo-server-express');
 
-// may need to adjust requirements and benefits to represent an array...?
-    // will mark them as arrays for now but may need to change it
+// requirements and benefits may need to be changed to simple strings later
 
 // no password for user in here because it should be inaccessible from the frontend
 const typeDefs = gql`
@@ -65,6 +64,8 @@ input JobData {
 
 type Query {
     me: User
+    getNotes: User
+    getLinks: User
 }
 
 type Mutation {

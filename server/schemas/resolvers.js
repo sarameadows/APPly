@@ -1,11 +1,9 @@
-// writing up some basic resolvers to handle expected needs
-// importing demo User model
 const {User} = require('../models');
+const {signToken} = require('../utils/auth');
 
 const resolvers = {
     Query: {
-        me: async (_, _, context) => {
-            // will need to use the context so i'll just have that set up already
+        me: async (_, __, context) => {
             if (context.user) {
                 // assuming log-in with email
                 const {email} = context.user;
@@ -16,6 +14,30 @@ const resolvers = {
             }
 
             // else
+            throw new Error('Not logged in.');
+        },
+
+        getNotes: async (_, __, context) => {
+            if (context.user) {
+                const {_id} = context.user;
+
+                const data = await User.findOne({_id});
+
+                return data;
+            }
+
+            throw new Error('Not logged in.');
+        },
+
+        getLinks: async (_, __, context) => {
+            if (context.user) {
+                const {_id} = context.user;
+
+                const data = await User.findOne({_id});
+
+                return data;
+            }
+
             throw new Error('Not logged in.');
         }
     },
@@ -29,25 +51,20 @@ const resolvers = {
                 throw new Error('User not found.');
             }
 
-            // will need to set up some means to checking if the password is correct
-            // this would be defined in the user model
-            // dummy method name
             const correctPw = await user.isCorrectPassword(password);
             if (!correctPw) {
                 throw new Error('Incorrect password.');
             }
 
-            // signToken() runs here
-            // will return token with user
-            return user;
+            const token = signToken(user);
+            return {token, user};
         },
 
         addUser: async (_, args) => {
             const user = await User.create(args);
 
-            // signToken() runs here
-            // will return token with user
-            return user;
+            const token = signToken(user);
+            return {token, user};
         },
 
         addJob: async (_, args, context) => {
