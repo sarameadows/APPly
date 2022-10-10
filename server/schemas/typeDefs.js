@@ -77,6 +77,7 @@ type Mutation {
     removeJob(jobId: ID!): User
     removeLink(linkId: ID!): User
     removeNote(noteId: ID!): User
+    updateJob(jobId: ID!): User
 }
 `;
 
