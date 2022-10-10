@@ -3,12 +3,12 @@ import { setContext } from '@apollo/client/link/context';
 import React from 'react';
 import {
   BrowserRouter as Router,
-  Switch,
+  Routes,
   Route
 } from 'react-router-dom';
 
 import Splash from './components/Splash.js';
-import Navbar from './components/Navbar.js';
+import NavBar from './components/Navbar.js';
 import Dashboard from './components/Dashboard.js';
 import Resources from './components/Resources.js';
 
@@ -43,13 +43,13 @@ function App() {
     <ApolloProvider client={client}>
       <Router>
         <>
-          <Navbar />
-          <Switch>
+          <NavBar />
+          <Routes>
             <Route exact path='/' component={Splash} />
             <Route exact path='/dashboard' component={Dashboard} />
             <Route exact path='/resources' component={Resources} />
             <Route render={() => <h1 className='display-2'>Wrong page!</h1>} />
-          </Switch>
+          </Routes>
         </>
       </Router>
     </ApolloProvider>

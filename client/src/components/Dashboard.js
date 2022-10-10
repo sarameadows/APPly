@@ -7,7 +7,7 @@ import DropdownButton from 'react-bootstrap/DropdownButton';
 import Card from 'react-bootstrap/Card';
 import CardHeader from 'react-bootstrap/esm/CardHeader';
 
-export const Dashboard = () => {
+const Dashboard = () => {
   const { isJobEntryModalOpen, setJobEntryModalOpen } = useState(false);
   const { isJobDetailModalOpen, setJobDetailModalOpen } = useState(false);
   const { jobs, setJobs } = useState();
@@ -171,3 +171,5 @@ export const Dashboard = () => {
     }
   });
 };
+
+export default Dashboard;
