@@ -1,10 +1,10 @@
 // writing up some basic resolvers to handle expected needs
 // importing demo User model
-const {User} = require('../models');
+const {User} = require('../models/User');
 
 const resolvers = {
     Query: {
-        me: async (_, _, context) => {
+        me: async (_, args, context) => {
             // will need to use the context so i'll just have that set up already
             if (context.user) {
                 // assuming log-in with email
