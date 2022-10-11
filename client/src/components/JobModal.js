@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { Form, Button, Alert } from 'react-bootstrap';
+import { Modal, Form, Button, Stack, Row, Col, Alert, Container } from 'react-bootstrap';
 import { useMutation } from '@apollo/client';
 import { ADD_JOB } from '../utils/mutations';
 
-function JobModal() {
+function JobContainer() {
     const [jobFormData, setJobFormData] = useState({ 
         dateApplied: '', 
         datePosted: '', 
@@ -20,11 +20,16 @@ function JobModal() {
     });
     const [validated] = useState(false);
     const [showAlert, setShowAlert] = useState(false);
-    const [addJob] = useMutation(ADD_JOB);
+    // const [addJob] = useMutation(ADD_JOB);
+
+    const [show, setShow] = useState(false);
+
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
     
     function handleInputChange(e) {
         const { name, value } = e.target;
-        setFormState({...jobFormData, [name]: value });
+        setJobFormData({...jobFormData, [name]: value });
     };
 
     const handleFormSubmit = async (event) => {
@@ -37,14 +42,14 @@ function JobModal() {
           event.stopPropagation();
         }
     
-        try {
-          const { data } = await addJob({
-            variables: {...jobFormData}
-          });
-        } catch (e) {
-          console.error(e);
-          setShowAlert(true);
-        }
+    //     try {
+    //       const { data } = await addJob({
+    //         variables: {...jobFormData}
+    //       });
+    //     } catch (e) {
+    //       console.error(e);
+    //       setShowAlert(true);
+    //     }
     
         setJobFormData({
             dateApplied: '', 
@@ -61,178 +66,140 @@ function JobModal() {
             pay: ''
         });
     };
-
+// noValidate validated={validated}
     return (
         <>
-            <Form noValidate validated={validated} onSubmit={handleFormSubmit}>
-                <Alert dismissible onClose={() => setShowAlert(false)} show={showAlert} variant='danger'>
-                    Something went wrong with your login credentials!
-                </Alert>
-                <Form.Group>
-                    <Form.Label htmlFor='dateApplied'>Date Applied</Form.Label>
-                    <Form.Control type='text' 
-                    placeholder='date applied' 
-                    name='dateApplied' 
-                    onChange={handleInputChange}
-                    value={userFormData.dateApplied} />
-                </Form.Group>
-                <Form.Group>
-                    <Form.Label htmlFor='datePosted'>Date Posted</Form.Label>
-                    <Form.Control type='text' 
-                    placeholder='date posted' 
-                    name='datePosted' 
-                    onChange={handleInputChange}
-                    value={userFormData.datePosted} />
-                </Form.Group>
-                <Form.Group>
-                    <Form.Label htmlFor='title'>Title</Form.Label>
-                    <Form.Control type='text' 
-                    placeholder='job title' 
-                    name='title' 
-                    onChange={handleInputChange}
-                    value={userFormData.title} />
-                </Form.Group>
-                <Form.Group>
-                    <Form.Label htmlFor='company'>Company</Form.Label>
-                    <Form.Control type='text' 
-                    placeholder='company name' 
-                    name='company' 
-                    onChange={handleInputChange}
-                    value={userFormData.company} />
-                </Form.Group>
-                <Form.Group>
-                    <Form.Label htmlFor='link'>Link</Form.Label>
-                    <Form.Control type='text' 
-                    placeholder='link to job posting' 
-                    name='link' 
-                    onChange={handleInputChange}
-                    value={userFormData.link} />
-                </Form.Group>
-                <Form.Group>
-                    <Form.Label htmlFor='location'>Location</Form.Label>
-                    <Form.Control type='text' 
-                    placeholder='location' 
-                    name='location' 
-                    onChange={handleInputChange}
-                    value={userFormData.location} />
-                </Form.Group>
-                <Form.Group>
-                    <Form.Label htmlFor='officeSetting'>Office Setting</Form.Label>
-                    <Form.Control type='text' 
-                    placeholder='ex. in person, remote, hybrid' 
-                    name='officeSetting' 
-                    onChange={handleInputChange}
-                    value={userFormData.officeSetting} />
-                </Form.Group>
-                <Form.Group>
-                    <Form.Label htmlFor='source'>Source</Form.Label>
-                    <Form.Control type='text' 
-                    placeholder='ex. linkedIn, indeed' 
-                    name='source' 
-                    onChange={handleInputChange}
-                    value={userFormData.source} />
-                </Form.Group>
-                <Form.Group>
-                    <Form.Label htmlFor='benefits'>Benefits</Form.Label>
-                    <Form.Control type='text' 
-                    placeholder='ex. healthcare, pto' 
-                    name='benefits' 
-                    onChange={handleInputChange}
-                    value={userFormData.benefits} />
-                </Form.Group>
-                <Form.Group>
-                    <Form.Label htmlFor='requirements'>Requirements</Form.Label>
-                    <Form.Control type='text' 
-                    placeholder='ex. certificates, degree' 
-                    name='requirements' 
-                    onChange={handleInputChange}
-                    value={userFormData.requirements} />
-                </Form.Group>
-                <Form.Group>
-                    <Form.Label htmlFor='pay'>Pay</Form.Label>
-                    <Form.Control type='text' 
-                    placeholder='ex. 90,000' 
-                    name='pay' 
-                    onChange={handleInputChange}
-                    value={userFormData.pay} />
-                </Form.Group>
-                <Form.Group>
-                    <Form.Label htmlFor='applicationStatus'>Application Status</Form.Label>
-                    <Form.Control type='text' 
-                    placeholder='application status' 
-                    name='applicationStatus' 
-                    onChange={handleInputChange}
-                    value={userFormData.applicationStatus} />
-                </Form.Group>
-                <Button type='submit' variant='success'>Submit</Button>
-            </Form>
+        {/* demo button for modal */}
+        <Button variant="primary" onClick={handleShow}>Launch demo modal</Button>
+        <Modal show={show} onHide={handleClose} centered>
+            <Modal.Header closeButton><h1>Add a new job</h1></Modal.Header>
+            <Modal.Body>
+                    <Form onSubmit={handleFormSubmit} className=''>
+                        {/* <Alert dismissible onClose={() => setShowAlert(false)} show={showAlert} variant='danger'>
+                            Something went wrong with your login credentials!
+                        </Alert> */}
+                        <Form.Group className='row mt-2'>
+                            <Form.Label className='col' htmlFor='dateApplied'>Date Applied</Form.Label>
+                            <Form.Control className='col' type='date' 
+                            placeholder='date applied' 
+                            name='dateApplied' 
+                            onChange={handleInputChange}
+                            value={jobFormData.dateApplied} />
+                        </Form.Group>
+                        <Form.Group className='row mt-2'>
+                            <Form.Label className='col' htmlFor='datePosted'>Date Posted</Form.Label>
+                            <Form.Control className='col' type='date' 
+                            placeholder='date posted' 
+                            name='datePosted' 
+                            onChange={handleInputChange}
+                            value={jobFormData.datePosted} />
+                        </Form.Group>
+                        <Form.Group className='row mt-2'>
+                            <Form.Label className='col' htmlFor='title'>Title</Form.Label>
+                            <Form.Control className='col' type='text' 
+                            placeholder='job title' 
+                            name='title' 
+                            onChange={handleInputChange}
+                            value={jobFormData.title} />
+                        </Form.Group>
+                        <Form.Group className='row mt-2'>
+                            <Form.Label className='col' htmlFor='company'>Company</Form.Label>
+                            <Form.Control className='col' type='text' 
+                            placeholder='company name' 
+                            name='company' 
+                            onChange={handleInputChange}
+                            value={jobFormData.company} />
+                        </Form.Group>
+                        <Form.Group className='row mt-2'>
+                            <Form.Label className='col' htmlFor='link'>Link</Form.Label>
+                            <Form.Control className='col' type='text' 
+                            placeholder='link to job posting' 
+                            name='link' 
+                            onChange={handleInputChange}
+                            value={jobFormData.link} />
+                        </Form.Group>
+                        <Form.Group className='row mt-2'>
+                            <Form.Label className='col' htmlFor='location'>Location</Form.Label>
+                            <Form.Control className='col' type='text' 
+                            placeholder='location' 
+                            name='location' 
+                            onChange={handleInputChange}
+                            value={jobFormData.location} />
+                        </Form.Group>
+                        <Form.Group className='row mt-2'>
+                            <Form.Label className='col' htmlFor='officeSetting'>Office Setting</Form.Label>
+                            <Col>
+                                <Form.Check
+                                    inline
+                                    type="radio"
+                                    label="in person"
+                                    name="officeSetting"
+                                    value={jobFormData.officeSetting} 
+                                />
+                                <Form.Check
+                                    type="radio"
+                                    label="hybrid"
+                                    name="officeSetting"
+                                    value={jobFormData.officeSetting} 
+                                />
+                                <Form.Check
+                                    type="radio"
+                                    label="remote"
+                                    name="officeSetting"
+                                    value={jobFormData.officeSetting} 
+                                />
+                            </Col>
+                        </Form.Group>
+                        <Form.Group className='row mt-2'>
+                            <Form.Label className='col' htmlFor='source'>Source</Form.Label>
+                            <Form.Control className='col' type='text' 
+                            placeholder='ex. linkedIn, indeed' 
+                            name='source' 
+                            onChange={handleInputChange}
+                            value={jobFormData.source} />
+                        </Form.Group>
+                        <Form.Group className='row mt-2'>
+                            <Form.Label className='col' htmlFor='benefits'>Benefits</Form.Label>
+                            <Form.Control className='col' type='text' 
+                            placeholder='ex. healthcare, pto' 
+                            name='benefits' 
+                            onChange={handleInputChange}
+                            value={jobFormData.benefits} />
+                        </Form.Group>
+                        <Form.Group className='row mt-2'>
+                            <Form.Label className='col' htmlFor='requirements'>Requirements</Form.Label>
+                            <Form.Control className='col' type='text' 
+                            placeholder='ex. certificates, degree' 
+                            name='requirements' 
+                            onChange={handleInputChange}
+                            value={jobFormData.requirements} />
+                        </Form.Group>
+                        <Form.Group className='row mt-2'>
+                            <Form.Label className='col' htmlFor='pay'>Pay</Form.Label>
+                            <Form.Control className='col' type='text' 
+                            placeholder='ex. 90,000' 
+                            name='pay' 
+                            onChange={handleInputChange}
+                            value={jobFormData.pay} />
+                        </Form.Group>
+                        <Form.Group className='row mt-2'>
+                            <Form.Label className='col' htmlFor='applicationStatus'>Application Status</Form.Label>
+                            <Form.Control className='col'
+                            type='text' 
+                            placeholder='ex. applied, waiting to hear' 
+                            name='applicationStatus' 
+                            onChange={handleInputChange}
+                            value={jobFormData.applicationStatus} />
+                        </Form.Group>
+                    </Form>
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button type='submit' variant='btn-lg'>Submit</Button>
+                </Modal.Footer>
+            </Modal>
         </>
-        // <div id="job-form" class="job-form">
-        //     <div class="job-box">
-        //         <h3>Add a new job!</h3>
-        //         <form class="" onSubmit={handleSubmit}>
-        //             <div>
-        //                 <label for="dateApplied">Date applied:</label>
-        //                 <input type="date" defaultValue={formState.dateApplied} onChange={handleChange} name="dateApplied" />
-        //             </div>
-        //             <div>
-        //                 <label for="datePosted">Date: posted:</label>
-        //                 <input type="date" defaultValue={formState.datePosted} onChange={handleChange} name="datePosted" />
-        //             </div>
-        //             <div>
-        //                 <label for="title">Title:</label>
-        //                 <input type="text" defaultValue={formState.title} onChange={handleChange} name="title" />
-        //             </div>
-        //             <div>
-        //                 <label for="company">Company:</label>
-        //                 <input type="text" defaultValue={formState.company} onChange={handleChange} name="company" />
-        //             </div>
-        //             <div>
-        //                 <label for="link">Link:</label>
-        //                 <input type="text" defaultValue={formState.link} onChange={handleChange} name="link" />
-        //             </div>
-        //             <div>
-        //                 <label for="location">Location:</label>
-        //                 <input type="text" defaultValue={formState.location} onChange={handleChange} name="location" />
-        //             </div>
-        //             <div>
-        //                 <label for="officeSetting">Office setting:</label>
-        //                 <input type="text" defaultValue={formState.officeSetting} onChange={handleChange} name="officeSetting" />
-        //             </div>
-        //             <div>
-        //                 <input type="radio" id="inPerson" name="officeSet" value="In person" />
-        //                 <label for="inPerson">In person</label>
-        //                 <input type="radio" id="remote" name="officeSet" value="Remote" />
-        //                 <label for="remote">Remote</label>
-        //                 <input type="radio" id="hybrid" name="officeSet" value="Hybrid" />
-        //                 <label for="hybrid">Hybrid</label>
-        //             </div>
-        //             <div>
-        //                 <label for="source">Source:</label>
-        //                 <input type="text" defaultValue={formState.source} onChange={handleChange} name="source" />
-        //             </div>
-        //             <div>
-        //                 <label for="requirements">Requirements:</label>
-        //                 <input type="text" defaultValue={formState.requirements} onChange={handleChange} name="requirements" />
-        //             </div>
-        //             <div>
-        //                 <label for="benefits">Benefits:</label>
-        //                 <input type="text" defaultValue={formState.benefits} onChange={handleChange} name="benefits" />
-        //             </div>
-        //             <div>
-        //                 <label for="pay">Pay:</label>
-        //                 <input type="text" defaultValue={formState.pay} onChange={handleChange} name="pay" />
-        //             </div>
-        //             <div>
-        //                 <label for="applicationStatus">Application status:</label>
-        //                 <input type="text" defaultValue={formState.applicationStatus} onChange={handleChange} name="applicationStatus" />
-        //             </div>
-        //             <button type='submit' onClick={handleFormSubmit}>Submit</button>
-        //         </form>
-        //     </div>
-        // </div>
     )
 }
 
 
-export default JobModal;
+export default JobContainer;

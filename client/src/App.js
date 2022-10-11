@@ -11,6 +11,7 @@ import Splash from './components/Splash.js';
 import NavBar from './components/Navbar.js';
 import Dashboard from './components/Dashboard.js';
 import Resources from './components/Resources.js';
+import JobModal from './components/JobModal.js';
 
 const httpLink = createHttpLink({
   uri: '/graphql'
@@ -33,27 +34,27 @@ const client = new ApolloClient({
 
 
 // what dustin had
-// function App() {
-//   return <Splash />;
-// }
-
-
 function App() {
-  return (
-    <ApolloProvider client={client}>
-      <Router>
-        <>
-          <NavBar />
-          <Routes>
-            <Route exact path='/' component={Splash} />
-            <Route exact path='/dashboard' component={Dashboard} />
-            <Route exact path='/resources' component={Resources} />
-            <Route render={() => <h1 className='display-2'>Wrong page!</h1>} />
-          </Routes>
-        </>
-      </Router>
-    </ApolloProvider>
-  );
+  return <JobModal />;
 }
+
+
+// function App() {
+//   return (
+//     <ApolloProvider client={client}>
+//       <Router>
+//         <>
+//           <NavBar />
+//           <Routes>
+//             <Route exact path='/' component={Splash} />
+//             <Route exact path='/dashboard' component={Dashboard} />
+//             <Route exact path='/resources' component={Resources} />
+//             <Route render={() => <h1 className='display-2'>Wrong page!</h1>} />
+//           </Routes>
+//         </>
+//       </Router>
+//     </ApolloProvider>
+//   );
+// }
 
 export default App;
