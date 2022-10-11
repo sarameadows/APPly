@@ -1,15 +1,17 @@
 .login {
+  flex: flex;
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
+  position: absolute;
   justify-content: center;
   align-items: center;
   /* display: none; */
 }
 
 .login-box {
-  width: 300px;
-  height: 200px;
+  width: 30vw;
+  height: 30vh;
   background-color: white;
   text-align: left;
   padding: 50px;
@@ -22,10 +24,11 @@
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
   position: absolute;
-  top: 0;
+  top: 50;
+  left: 50;
   justify-content: center;
   align-items: center;
-  display: none;
+  /* display: none; */
 }
 
 .signup-box {

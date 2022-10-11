@@ -2,13 +2,15 @@ import { useState } from 'react';
 import Auth from '../utils/auth';
 import { useMutation } from '@apollo/client';
 import { ADD_USER } from '../utils/mutations';
+import { Link } from 'react-router-dom';
 import './LoginModal.css';
 
 function SignUp(onClose) {
   const [formState, setFormState] = useState({
-    name: '',
+    username: '',
+    password: '',
     email: '',
-    message: '',
+    github: '',
   });
   const { username, password, email, github } = formState;
 
@@ -20,24 +22,24 @@ function SignUp(onClose) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    console.log(formState);
     const mutationResponse = await addUser({
       variables: {
-        username,
-        password,
-        email,
-        github,
+        username: formState.username,
+        email: formState.email,
+        password: formState.password,
       },
     });
     const token = mutationResponse.data.addUser.token;
     Auth.login(token);
+    <Link to="/dashboard"></Link>;
   };
 
   return (
-    <div id="signup" class="signup" onBlur={onClose}>
-      <div class="signup-box">
+    <div id="signup" className="signup" onBlur={onClose}>
+      <div className="signup-box">
         <h3>Sign up!</h3>
-        <form class="signup-form" onSubmit={handleSubmit}>
+        <form className="signup-form" onSubmit={handleSubmit}>
           <div>
             <label htmlFor="username">Username:</label>
             <input
@@ -51,7 +53,7 @@ function SignUp(onClose) {
           <div>
             <label htmlFor="password">Password:</label>
             <input
-              type="text"
+              type="password"
               defaultValue={password}
               onChange={handleChange}
               name="password"

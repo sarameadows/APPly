@@ -38,7 +38,7 @@ function Login(onClose) {
         <h3>Login!</h3>
         <form className="login-form" onSubmit={handleSubmit}>
           <div>
-            <label for="username">Username:</label>
+            <label htmlFor="username">Email:</label>
             <input
               type="email"
               defaultValue={email}
@@ -48,7 +48,7 @@ function Login(onClose) {
             />
           </div>
           <div>
-            <label for="password">Password:</label>
+            <label htmlFor="password">Password:</label>
             <input
               type="text"
               defaultValue={password}

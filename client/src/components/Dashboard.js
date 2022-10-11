@@ -1,14 +1,13 @@
 import { useState, useEffect } from 'react';
 import { useQuery } from '@apollo/client';
 import { GET_ME } from '../utils/queries';
-import JobModal from './JobModal';
+// import JobModal from './JobModal';
 import JobDetail from './JobDetail';
 import Spinner from 'react-bootstrap/Spinner';
 import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
-import CardHeader from 'react-bootstrap/esm/CardHeader';
 
 const Dashboard = () => {
   const { isJobEntryModalOpen, setJobEntryModalOpen } = useState(false);
@@ -98,7 +97,7 @@ const Dashboard = () => {
       return (
         <div id="dashboard-container">
           <div>
-            {isJobEntryModalOpen && <JobModal onClose={ToggleEntryModal} />}
+            {/*isJobEntryModalOpen && <JobModal onClose={ToggleEntryModal} />*/}
           </div>
           <div>
             {isJobDetailModalOpen && (

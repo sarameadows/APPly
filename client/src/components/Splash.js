@@ -20,19 +20,21 @@ const Splash = () => {
   };
 
   return (
-    <Container fluid id="splash-container">
+    <div>
       {isLoginModalOpen && <LoginModal onClose={toggleLoginModal} />}
       {isSignupModalOpen && <SignupModal onClose={toggleSignupModal} />}
-      <img id="splash-logo" src={MainLogo} alt="APPly logo" />
-      <ButtonGroup id="splash-btn-group" aria-label="login and signup">
-        <Button id="login-btn" onClick={() => toggleLoginModal()}>
-          Login
-        </Button>
-        <Button id="signup-btn" onClick={() => toggleSignupModal()}>
-          Signup
-        </Button>
-      </ButtonGroup>
-    </Container>
+      <Container fluid id="splash-container">
+        <img id="splash-logo" src={MainLogo} alt="APPly logo" />
+        <ButtonGroup id="splash-btn-group" aria-label="login and signup">
+          <Button id="login-btn" onClick={() => toggleLoginModal()}>
+            Login
+          </Button>
+          <Button id="signup-btn" onClick={() => toggleSignupModal()}>
+            Signup
+          </Button>
+        </ButtonGroup>
+      </Container>
+    </div>
   );
 };
 
