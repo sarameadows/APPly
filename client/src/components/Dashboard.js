@@ -91,7 +91,10 @@ const Dashboard = () => {
   useEffect(() => {
     if (loading) {
       return <Spinner animation="border" />;
-    } else if (data) {
+    } else if (!loading) {
+    }
+
+    const Dashboard = () => {
       return (
         <div id="dashboard-container">
           <div>
@@ -196,6 +199,8 @@ const Dashboard = () => {
           </div>
         </div>
       );
-    }
+    };
   });
 };
+
+export default Dashboard;

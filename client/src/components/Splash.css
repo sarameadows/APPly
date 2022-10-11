@@ -8,7 +8,7 @@
 }
 
 #splash-logo {
-  width: 30vw;
+  width: 20vw;
   margin-bottom: 5vh;
   border-radius: 10px;
 }
@@ -19,7 +19,7 @@
 
 #login-btn,
 #signup-btn {
-  font-size: 4vh !important;
+  font-size: 2.5vh !important;
   background-color: var(--dark-blue);
   color: var(--grey);
 }
@@ -27,11 +27,11 @@
 #login-btn {
   border-top-left-radius: 7px;
   border-bottom-left-radius: 7px;
-  width: 10vw;
+  width: 6vw;
 }
 
 #signup-btn {
   border-top-right-radius: 7px;
   border-bottom-right-radius: 7px;
-  width: 10vw;
+  width: 6vw;
 }
