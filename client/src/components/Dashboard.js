@@ -90,116 +90,115 @@ const Dashboard = () => {
   useEffect(() => {
     if (loading) {
       return <Spinner animation="border" />;
-    } else if (!loading) {
+    } else {
+      return data;
     }
+  }, [data, loading]);
 
-    const Dashboard = () => {
-      return (
-        <div id="dashboard-container">
-          <div>
-            {/*isJobEntryModalOpen && <JobModal onClose={ToggleEntryModal} />*/}
-          </div>
-          <div>
-            {isJobDetailModalOpen && (
-              <JobDetail currentJob={currentJob} onClose={ToggleDetailModal} />
-            )}
-          </div>
-          <div id="jobs-filter-bar">
-            <DropdownButton
-              className="filter-btn"
-              id="location-filter"
-              title="Location"
-            >
-              {filterLocations.map((location, id) => {
-                return (
-                  <Dropdown.Item
-                    as="button"
-                    className="dropdown-btn"
-                    key={id}
-                    onClick={() => filterLocation(location)}
-                  >
-                    {location}
-                  </Dropdown.Item>
-                );
-              })}
-            </DropdownButton>
-            <DropdownButton
-              className="filter-btn"
-              id="office-setting-filter"
-              title="Office Setting"
-            >
-              {filterOfficeSettings.map((officeSetting, id) => {
-                return (
-                  <Dropdown.Item
-                    as="button"
-                    className="dropdown-btn"
-                    key={id}
-                    onClick={() => filterOfficeSetting(officeSetting)}
-                  >
-                    {officeSetting}
-                  </Dropdown.Item>
-                );
-              })}
-            </DropdownButton>
-            <DropdownButton
-              className="filter-btn"
-              id="source-filter"
-              title="Posting Source"
-            >
-              {filterSources.map((source, id) => {
-                return (
-                  <Dropdown.Item
-                    as="button"
-                    className="dropdown-btn"
-                    key={id}
-                    onClick={() => filterSource(source)}
-                  >
-                    {source}
-                  </Dropdown.Item>
-                );
-              })}
-            </DropdownButton>
-            <DropdownButton
-              className="dropdown-btn"
-              id="application-status-filter"
-              title="Application Status"
-            >
-              {filterApplicationStatuses.map((applicationStatus, id) => {
-                return (
-                  <Dropdown.Item
-                    as="button"
-                    className="dropdown-btn"
-                    key={id}
-                    onClick={() => filterApplicationStatus(applicationStatus)}
-                  >
-                    {applicationStatus}
-                  </Dropdown.Item>
-                );
-              })}
-            </DropdownButton>
-            <Button onClick={ToggleEntryModal}>Enter a new job</Button>
-          </div>
-          <div id="jobs-container">
-            {data.savedJobs.map((savedJob, jobId) => {
-              return (
-                <Card className="job-card" onClick={() => ToggleDetailModal}>
-                  <Card.Body>
-                    <Card.Title>{savedJob.title}</Card.Title>
-                    <Card.Subtitle>{savedJob.company}</Card.Subtitle>
-                    <Card.Text>
-                      Location: {savedJob.location}
-                      Source: {savedJob.source}
-                    </Card.Text>
-                    <Card.Link href={savedJob.link}>Direct Link</Card.Link>
-                  </Card.Body>
-                </Card>
-              );
-            })}
-          </div>
-        </div>
-      );
-    };
-  });
+  return (
+    <div id="dashboard-container">
+      <div>
+        {/*isJobEntryModalOpen && <JobModal onClose={ToggleEntryModal} />*/}
+      </div>
+      <div>
+        {isJobDetailModalOpen && (
+          <JobDetail currentJob={currentJob} onClose={ToggleDetailModal} />
+        )}
+      </div>
+      <div id="jobs-filter-bar">
+        <DropdownButton
+          className="filter-btn"
+          id="location-filter"
+          title="Location"
+        >
+          {filterLocations.map((location, id) => {
+            return (
+              <Dropdown.Item
+                as="button"
+                className="dropdown-btn"
+                key={id}
+                onClick={() => filterLocation(location)}
+              >
+                {location}
+              </Dropdown.Item>
+            );
+          })}
+        </DropdownButton>
+        <DropdownButton
+          className="filter-btn"
+          id="office-setting-filter"
+          title="Office Setting"
+        >
+          {filterOfficeSettings.map((officeSetting, id) => {
+            return (
+              <Dropdown.Item
+                as="button"
+                className="dropdown-btn"
+                key={id}
+                onClick={() => filterOfficeSetting(officeSetting)}
+              >
+                {officeSetting}
+              </Dropdown.Item>
+            );
+          })}
+        </DropdownButton>
+        <DropdownButton
+          className="filter-btn"
+          id="source-filter"
+          title="Posting Source"
+        >
+          {filterSources.map((source, id) => {
+            return (
+              <Dropdown.Item
+                as="button"
+                className="dropdown-btn"
+                key={id}
+                onClick={() => filterSource(source)}
+              >
+                {source}
+              </Dropdown.Item>
+            );
+          })}
+        </DropdownButton>
+        <DropdownButton
+          className="dropdown-btn"
+          id="application-status-filter"
+          title="Application Status"
+        >
+          {filterApplicationStatuses.map((applicationStatus, id) => {
+            return (
+              <Dropdown.Item
+                as="button"
+                className="dropdown-btn"
+                key={id}
+                onClick={() => filterApplicationStatus(applicationStatus)}
+              >
+                {applicationStatus}
+              </Dropdown.Item>
+            );
+          })}
+        </DropdownButton>
+        <Button onClick={ToggleEntryModal}>Enter a new job</Button>
+      </div>
+      <div id="jobs-container">
+        {data.savedJobs.map((savedJob, jobId) => {
+          return (
+            <Card className="job-card" onClick={() => ToggleDetailModal}>
+              <Card.Body>
+                <Card.Title>{savedJob.title}</Card.Title>
+                <Card.Subtitle>{savedJob.company}</Card.Subtitle>
+                <Card.Text>
+                  Location: {savedJob.location}
+                  Source: {savedJob.source}
+                </Card.Text>
+                <Card.Link href={savedJob.link}>Direct Link</Card.Link>
+              </Card.Body>
+            </Card>
+          );
+        })}
+      </div>
+    </div>
+  );
 };
 
 export default Dashboard;

@@ -2,7 +2,7 @@ import { useState } from 'react';
 import Auth from '../utils/auth';
 import { useMutation } from '@apollo/client';
 import { ADD_USER } from '../utils/mutations';
-import { Link } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 import './LoginModal.css';
 
 function SignUp(onClose) {
@@ -32,7 +32,7 @@ function SignUp(onClose) {
     });
     const token = mutationResponse.data.addUser.token;
     Auth.login(token);
-    <Link to="/dashboard"></Link>;
+    <Navigate to="/dashboard" replace={true} />;
   };
 
   return (

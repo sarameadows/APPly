@@ -35,8 +35,8 @@ function App() {
       <Router>
         <Splash />
         <Routes>
-          <Route exact path="/" component={Splash} />
-          <Route exact path="/dashboard" component={Dashboard} />
+          <Route path="/" component={Splash} />
+          <Route path="/dashboard" component={Dashboard} />
           {/*<Route exact path="/resources" component={Resources} />*/}
           <Route render={() => <h1 className="display-2">Wrong page!</h1>} />
         </Routes>
