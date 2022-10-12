@@ -1,53 +1,67 @@
 import React, { useState } from 'react';
-import './LoginModal.css'
+import { useMutation } from '@apollo/client';
+import { LOGIN } from '../utils/mutations';
+import Auth from '../utils/auth';
+import './LoginModal.css';
 
-function Login({ onClose }) {
-    const [errorMessage, setErrorMessage] = useState('');
+function Login(onClose) {
+  const [formState, setFormState] = useState({
+    name: '',
+    email: '',
+    message: '',
+  });
+  const { email, password } = formState;
 
-    const [formState, setFormState] = useState({ username: '', password: '' });
-    // const { email, password } = formState;
+  const [login, { error }] = useMutation(LOGIN);
 
-    function handleChange(e) {
-        if (!e.target.value.length) {
-            setErrorMessage(`Please enter your ${e.target.name}.`);
-        } else {
-            setErrorMessage('');
-        }
-        if (!errorMessage) {
-            setFormState({ ...formState, [e.target.name]: e.target.value })
-        }
+  function handleChange(e) {
+    setFormState({ ...formState, [e.target.name]: e.target.value });
+  }
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const mutationResponse = await login({
+        variables: { email, password },
+      });
+      const token = mutationResponse.data.login.token;
+      Auth.login(token);
+    } catch (e) {
+      console.log(e);
     }
+  };
 
-    function handleSubmit(e) {
-        e.preventDefault();
-
-        console.log(formState);
-    }
-
-    return (
-        <div id="login" className="login">
-            <div className="login-box">
-                <h3>Login!</h3>
-                <form className="login-form" onSubmit={handleSubmit}>
-                    <div>
-                        <label htmlFor="email">Email:</label>
-                        <input type="text" defaultValue={formState.email} onBlur={handleChange} name="email" />
-                    </div>
-                    <div>
-                        <label htmlFor="password">Password:</label>
-                        <input type="text" defaultValue={formState.password} onBlur={handleChange} name="password" />
-                    </div>
-                    {errorMessage && (
-                        <div>
-                            <p>{errorMessage}</p>
-                        </div>
-                    )}
-                    <button type='submit' onClick={onClose}>Submit</button>
-                </form>
-            </div>
-        </div>
-    )
+  return (
+    <div id="login" className="login" onBlur={onClose}>
+      <div className="login-box">
+        <h3>Login!</h3>
+        <form className="login-form" onSubmit={handleSubmit}>
+          <div>
+            <label htmlFor="username">Email:</label>
+            <input
+              type="email"
+              defaultValue={email}
+              onChange={handleChange}
+              name="email"
+              value={email}
+            />
+          </div>
+          <div>
+            <label htmlFor="password">Password:</label>
+            <input
+              type="text"
+              defaultValue={password}
+              onChange={handleChange}
+              name="password"
+              value={password}
+            />
+          </div>
+          <button type="submit">Submit</button>
+        </form>
+      </div>
+    </div>
+  );
 }
-
 
 export default Login;

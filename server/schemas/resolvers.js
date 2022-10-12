@@ -1,185 +1,186 @@
-const {User} = require('../models');
-const {signToken} = require('../utils/auth');
+const { User } = require('../models');
+const { signToken } = require('../utils/auth');
 
 const resolvers = {
-    Query: {
-        me: async (_, __, context) => {
-            if (context.user) {
-                // assuming log-in with email
-                const {email} = context.user;
+  Query: {
+    me: async (_, __, context) => {
+      if (context.user) {
+        // assuming log-in with email
+        const { email } = context.user;
 
-                const data = await User.findOne({email}).select('-__v -password');
+        const data = await User.findOne({ email }).select('-__v -password');
 
-                return data;
-            }
+        return data;
+      }
 
-            // else
-            throw new Error('Not logged in.');
-        },
-
-        getNotes: async (_, __, context) => {
-            if (context.user) {
-                const {_id} = context.user;
-
-                const data = await User.findOne({_id});
-
-                return data;
-            }
-
-            throw new Error('Not logged in.');
-        },
-
-        getLinks: async (_, __, context) => {
-            if (context.user) {
-                const {_id} = context.user;
-
-                const data = await User.findOne({_id});
-
-                return data;
-            }
-
-            throw new Error('Not logged in.');
-        }
+      // else
+      throw new Error('Not logged in.');
     },
-    Mutation: {
-        login: async (_, args) => {
-            const {email, password} = args;
 
-            // look for user
-            const user = await User.findOne({email});
-            if (!user) {
-                throw new Error('User not found.');
-            }
+    getNotes: async (_, __, context) => {
+      if (context.user) {
+        const { _id } = context.user;
 
-            const correctPw = await user.isCorrectPassword(password);
-            if (!correctPw) {
-                throw new Error('Incorrect password.');
-            }
+        const data = await User.findOne({ _id });
 
-            const token = signToken(user);
-            return {token, user};
-        },
+        return data;
+      }
 
-        addUser: async (_, args) => {
-            const user = await User.create(args);
+      throw new Error('Not logged in.');
+    },
 
-            const token = signToken(user);
-            return {token, user};
-        },
+    getLinks: async (_, __, context) => {
+      if (context.user) {
+        const { _id } = context.user;
 
-        addJob: async (_, args, context) => {
-            // will use context
-            if (context.user) {
-                const {_id} = context.user;
-                const {jobData} = args;
+        const data = await User.findOne({ _id });
 
-                const user = await User.findOneAndUpdate(
-                    {_id},
-                    {$addToSet: {jobs: jobData}},
-                    {new: true}
-                );
+        return data;
+      }
 
-                return user;
-            }
+      throw new Error('Not logged in.');
+    },
+  },
+  Mutation: {
+    login: async (_, args) => {
+      const { email, password } = args;
 
-            // else
-            throw new Error('Not logged in.');
-        },
+      // look for user
+      const user = await User.findOne({ email });
+      if (!user) {
+        throw new Error('User not found.');
+      }
 
-        addLink: async (_, args, context) => {
-            if (context.user) {
-                const {_id} = context.user;
-                const {name, link} = args;
-                const newLink = {
-                    name: name,
-                    link: link
-                };
+      const correctPw = await user.isCorrectPassword(password);
+      if (!correctPw) {
+        throw new Error('Incorrect password.');
+      }
 
-                const user = await User.findOneAndUpdate(
-                    {_id},
-                    {$addToSet: {links: newLink}},
-                    {new: true}
-                );
+      const token = signToken(user);
+      return { token, user };
+    },
 
-                return user;
-            }
+    addUser: async (_, args) => {
+      const user = await User.create(args);
+      console.log('ABOUT TO SIGN TOKEN', user);
+      const token = signToken(user);
+      console.log('SIGNED TOKEN', token);
+      return { token, user };
+    },
 
-            // else
-            throw new Error('Not logged in.');
-        },
+    addJob: async (_, args, context) => {
+      // will use context
+      if (context.user) {
+        const { _id } = context.user;
+        const { jobData } = args;
 
-        addNote: async (_, args, context) => {
-            if (context.user) {
-                const {_id} = context.user;
-                const {title, text} = args;
-                const newNote = {
-                    title: title,
-                    text: text
-                };
+        const user = await User.findOneAndUpdate(
+          { _id },
+          { $addToSet: { jobs: jobData } },
+          { new: true }
+        );
 
-                const user = await User.findOneAndUpdate(
-                    {_id},
-                    {$addToSet: {notes: newNote}},
-                    {new: true}
-                );
+        return user;
+      }
 
-                return user;
-            }
+      // else
+      throw new Error('Not logged in.');
+    },
 
-            throw new Error('Not logged in.');
-        },
+    addLink: async (_, args, context) => {
+      if (context.user) {
+        const { _id } = context.user;
+        const { name, link } = args;
+        const newLink = {
+          name: name,
+          link: link,
+        };
 
-        removeJob: async (_, args, context) => {
-            if (context.user) {
-                const {_id} = context.user;
-                const {jobId} = args;
+        const user = await User.findOneAndUpdate(
+          { _id },
+          { $addToSet: { links: newLink } },
+          { new: true }
+        );
 
-                const user = await User.findOneAndUpdate(
-                    {_id},
-                    {$pull: {jobs: {jobId}}},
-                    {new: true}
-                );
+        return user;
+      }
 
-                return user;
-            }
+      // else
+      throw new Error('Not logged in.');
+    },
 
-            throw new Error('Not logged in.');
-        },
+    addNote: async (_, args, context) => {
+      if (context.user) {
+        const { _id } = context.user;
+        const { title, text } = args;
+        const newNote = {
+          title: title,
+          text: text,
+        };
 
-        removeLink: async (_, args, context) => {
-            if (context.user) {
-                const {_id} = context.user;
-                const {linkId} = args;
+        const user = await User.findOneAndUpdate(
+          { _id },
+          { $addToSet: { notes: newNote } },
+          { new: true }
+        );
 
-                const user = await User.findOneAndUpdate(
-                    {_id},
-                    {$pull: {links: {linkId}}},
-                    {new: true}
-                );
+        return user;
+      }
 
-                return user;
-            }
+      throw new Error('Not logged in.');
+    },
 
-            throw new Error('Not logged in.');
-        },
+    removeJob: async (_, args, context) => {
+      if (context.user) {
+        const { _id } = context.user;
+        const { jobId } = args;
 
-        removeNote: async (_, args, context) => {
-            if (context.user) {
-                const {_id} = context.user;
-                const {noteId} = args;
+        const user = await User.findOneAndUpdate(
+          { _id },
+          { $pull: { jobs: { jobId } } },
+          { new: true }
+        );
 
-                const user = await User.findOneAndUpdate(
-                    {_id},
-                    {$pull: {notes: {noteId}}},
-                    {new: true}
-                );
+        return user;
+      }
 
-                return user;
-            }
+      throw new Error('Not logged in.');
+    },
 
-            throw new Error('Not logged in.');
-        }
-    }
+    removeLink: async (_, args, context) => {
+      if (context.user) {
+        const { _id } = context.user;
+        const { linkId } = args;
+
+        const user = await User.findOneAndUpdate(
+          { _id },
+          { $pull: { links: { linkId } } },
+          { new: true }
+        );
+
+        return user;
+      }
+
+      throw new Error('Not logged in.');
+    },
+
+    removeNote: async (_, args, context) => {
+      if (context.user) {
+        const { _id } = context.user;
+        const { noteId } = args;
+
+        const user = await User.findOneAndUpdate(
+          { _id },
+          { $pull: { notes: { noteId } } },
+          { new: true }
+        );
+
+        return user;
+      }
+
+      throw new Error('Not logged in.');
+    },
+  },
 };
 
 module.exports = resolvers;
