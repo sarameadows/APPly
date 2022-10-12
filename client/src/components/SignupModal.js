@@ -10,11 +10,10 @@ function SignUp(onClose) {
     username: '',
     password: '',
     email: '',
-    github: '',
   });
-  const { username, password, email, github } = formState;
+  const { username, password, email } = formState;
 
-  const [addUser] = useMutation(ADD_USER);
+  const [addUser, { error }] = useMutation(ADD_USER);
 
   function handleChange(e) {
     setFormState({ ...formState, [e.target.name]: e.target.value });
@@ -22,7 +21,8 @@ function SignUp(onClose) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formState);
+    console.log('Form State', formState);
+    console.log('ERROR', error);
     const mutationResponse = await addUser({
       variables: {
         username: formState.username,
@@ -30,13 +30,15 @@ function SignUp(onClose) {
         password: formState.password,
       },
     });
+    console.log('SHOULD HAVE ADDED USER NOW');
     const token = mutationResponse.data.addUser.token;
+    console.log(token);
     Auth.login(token);
     <Navigate to="/dashboard" replace={true} />;
   };
 
   return (
-    <div id="signup" className="signup" onBlur={onClose}>
+    <div id="signup" className="signup">
       <div className="signup-box">
         <h3>Sign up!</h3>
         <form className="signup-form" onSubmit={handleSubmit}>
@@ -44,7 +46,6 @@ function SignUp(onClose) {
             <label htmlFor="username">Username:</label>
             <input
               type="text"
-              defaultValue={username}
               onChange={handleChange}
               name="username"
               value={username}
@@ -54,7 +55,6 @@ function SignUp(onClose) {
             <label htmlFor="password">Password:</label>
             <input
               type="password"
-              defaultValue={password}
               onChange={handleChange}
               name="password"
               value={password}
@@ -64,13 +64,12 @@ function SignUp(onClose) {
             <label htmlFor="email">Email address:</label>
             <input
               type="email"
-              defaultValue={email}
               onChange={handleChange}
               name="email"
               value={email}
             />
           </div>
-          <div>
+          {/*        <div>
             <label htmlFor="github">GitHub:</label>
             <input
               type="text"
@@ -79,7 +78,7 @@ function SignUp(onClose) {
               name="github"
               value={github}
             />
-          </div>
+  </div> */}
           <button type="submit">Submit</button>
         </form>
       </div>
