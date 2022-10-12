@@ -11,18 +11,23 @@ const Splash = () => {
   const [isLoginModalOpen, setLoginModalOpen]  = useState(false);
   const [isSignupModalOpen, setSignupModalOpen] = useState(false);
 
-  //const toggleModal = () => {
-  //   setLoginModalOpen(!isLoginModalOpen);
-  // }
+  const toggleLoginModal = () => {
+    setLoginModalOpen(!isLoginModalOpen);
+  }
+  const toggleSignupModal = () => {
+    setSignupModalOpen(!isSignupModalOpen);
+  }
 
   return (
     <Container fluid id="splash-container">
 
       {isLoginModalOpen && (
-      <Login onclose={!isLoginModalOpen} />
+      <Login onClose={toggleLoginModal} />
       )} 
 
-      {isSignupModalOpen && <SignUp />}
+      {isSignupModalOpen && (
+      <SignUp onClose={toggleSignupModal} />
+      )}
       <img id="splash-logo" src={MainLogo} alt="APPly logo" />
       <ButtonGroup id="splash-btn-group" aria-label="login and signup">
         <Button

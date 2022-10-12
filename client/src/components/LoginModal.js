@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import './LoginModal.css'
 
-function Login({ onClose, isLoginModalOpen }) {
+function Login({ onClose }) {
     const [errorMessage, setErrorMessage] = useState('');
 
     const [formState, setFormState] = useState({ username: '', password: '' });
-    // const { username, password } = formState;
+    // const { email, password } = formState;
 
     function handleChange(e) {
         if (!e.target.value.length) {
@@ -22,19 +22,16 @@ function Login({ onClose, isLoginModalOpen }) {
         e.preventDefault();
 
         console.log(formState);
-
-
-        console.log(isLoginModalOpen)
     }
 
     return (
-        <div id="login" class="login">
-            <div class="login-box">
+        <div id="login" className="login">
+            <div className="login-box">
                 <h3>Login!</h3>
-                <form class="login-form" onSubmit={handleSubmit}>
+                <form className="login-form" onSubmit={handleSubmit}>
                     <div>
-                        <label htmlFor="username">Username:</label>
-                        <input type="text" defaultValue={formState.username} onBlur={handleChange} name="username" />
+                        <label htmlFor="email">Email:</label>
+                        <input type="text" defaultValue={formState.email} onBlur={handleChange} name="email" />
                     </div>
                     <div>
                         <label htmlFor="password">Password:</label>
@@ -42,7 +39,7 @@ function Login({ onClose, isLoginModalOpen }) {
                     </div>
                     {errorMessage && (
                         <div>
-                            <p className="error-text">{errorMessage}</p>
+                            <p>{errorMessage}</p>
                         </div>
                     )}
                     <button type='submit' onClick={onClose}>Submit</button>

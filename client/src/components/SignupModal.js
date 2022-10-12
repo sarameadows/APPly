@@ -2,12 +2,22 @@ import React, { useState } from 'react';
 import './LoginModal.css'
 
 function SignUp({ onClose }) {
+    const [errorMessage, setErrorMessage] = useState('');
+
     const [formState, setFormState] = useState({ username: '', password: '', email: '', github: '' });
     // const { username, password, email, github } = formState;
-    
+
     function handleChange(e) {
-        setFormState({...formState, [e.target.name]: e.target.value })
+        if (!e.target.value.length) {
+            setErrorMessage(`Please enter your ${e.target.name}.`);
+        } else {
+            setErrorMessage('');
+        }
+        if (!errorMessage) {
+            setFormState({ ...formState, [e.target.name]: e.target.value })
+        }
     }
+
 
     function handleSubmit(e) {
         e.preventDefault();
@@ -15,26 +25,31 @@ function SignUp({ onClose }) {
         console.log(formState);
     }
     return (
-        <div id="signup" class="signup">
-            <div class="signup-box">
+        <div id="signup" className="signup">
+            <div className="signup-box">
                 <h3>Sign up!</h3>
-                <form class="signup-form" onSubmit={handleSubmit}>
+                <form className="signup-form" onSubmit={handleSubmit}>
                     <div>
-                        <label htmlFor="username">Username:</label>
-                        <input type="text" defaultValue={formState.username} onChange={handleChange} name='username' />
-                    </div>
-                    <div>
-                        <label htmlFor="password">Password:</label>
-                        <input type="text" defaultValue={formState.password} onChange={handleChange} name='password' />
+                        <label htmlFor="username">username:</label>
+                        <input type="username" defaultValue={formState.username} onBlur={handleChange} name="username" />
                     </div>
                     <div>
                         <label htmlFor="email">Email address:</label>
-                        <input type="email" defaultValue={formState.email} onChange={handleChange} name="email" />
+                        <input type="email" defaultValue={formState.email} onBlur={handleChange} name="email" />
+                    </div>
+                    <div>
+                        <label htmlFor="password">Password:</label>
+                        <input type="text" defaultValue={formState.password} onBlur={handleChange} name='password' />
                     </div>
                     <div>
                         <label htmlFor="github">GitHub:</label>
-                        <input type="text" defaultValue={formState.github} onChange={handleChange} name='github' />
+                        <input type="text" defaultValue={formState.github} onBlur={handleChange} name='github' />
                     </div>
+                    {errorMessage && (
+                        <div>
+                            <p>{errorMessage}</p>
+                        </div>
+                    )}
                     <button type='submit' onClick={onClose}>Submit</button>
                 </form>
             </div>
