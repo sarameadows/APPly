@@ -35,26 +35,7 @@ const client = new ApolloClient({
 
 // what dustin had
 function App() {
-  return <JobModal />;
-}
-
-
-// function App() {
-//   return (
-//     <ApolloProvider client={client}>
-//       <Router>
-//         <>
-//           <NavBar />
-//           <Routes>
-//             <Route exact path='/' component={Splash} />
-//             <Route exact path='/dashboard' component={Dashboard} />
-//             <Route exact path='/resources' component={Resources} />
-//             <Route render={() => <h1 className='display-2'>Wrong page!</h1>} />
-//           </Routes>
-//         </>
-//       </Router>
-//     </ApolloProvider>
-//   );
-// }
+  return <Splash />;
+};
 
 export default App;
