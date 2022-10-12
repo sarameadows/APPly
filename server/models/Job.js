@@ -4,11 +4,11 @@ const jobSchema = new Schema(
     {
         dateApplied: {
             type: Date,
-            required: true,
+            required: false,
         },
         datePosted: {
             type: Date,
-            required: true,
+            required: false,
         },
         title: {
             type: String,
@@ -20,23 +20,23 @@ const jobSchema = new Schema(
         },
         link: {
             type: String,
-            required: true,
+            required: false,
         },
         location: {
             type: String,
-            required: true,
+            required: false,
         },
         officeSetting: {
             type: String,
-            required: true,
+            required: false,
         },
         source: {
             type: String,
-            required: true,
+            required: false,
         },
         requirements: {
             type: [String],
-            required: true,
+            required: false,
         },
         applicationStatus: {
             type: String,
@@ -48,7 +48,7 @@ const jobSchema = new Schema(
         },
         pay: {
             type: String,
-            required: true,
+            required: false,
         }
     }
 );
