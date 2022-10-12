@@ -23,18 +23,22 @@ function SignUp(onClose) {
     e.preventDefault();
     console.log('Form State', formState);
     console.log('ERROR', error);
-    const mutationResponse = await addUser({
-      variables: {
-        username: formState.username,
-        email: formState.email,
-        password: formState.password,
-      },
-    });
-    console.log('SHOULD HAVE ADDED USER NOW');
-    const token = mutationResponse.data.addUser.token;
-    console.log(token);
-    Auth.login(token);
-    <Navigate to="/dashboard" replace={true} />;
+    try {
+      const mutationResponse = await addUser({
+        variables: {
+          username: formState.username,
+          email: formState.email,
+          password: formState.password,
+        },
+      });
+      console.log('SHOULD HAVE ADDED USER NOW');
+      const token = mutationResponse.data.addUser.token;
+      console.log(token);
+      Auth.login(token);
+      <Navigate to="/dashboard" replace={true} />;
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   return (

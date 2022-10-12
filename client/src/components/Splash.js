@@ -6,6 +6,8 @@ import MainLogo from '../assets/images/APPly.png';
 import LoginModal from './LoginModal';
 import SignupModal from './SignupModal';
 import './Splash.css';
+import Login from './LoginModal';
+import SignUp from './SignupModal';
 
 const Splash = () => {
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
