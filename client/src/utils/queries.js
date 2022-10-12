@@ -7,7 +7,7 @@ query me {
         _id
         username
         email
-        savedJobs {
+        jobs {
             jobId
             dateApplied
             datePosted
@@ -21,6 +21,37 @@ query me {
             applicationStatus
             requirements
             benefits
+        }
+    }
+}
+`;
+
+// i'd recommend using GET_NOTES and GET_LINKS with useLazyQuery
+export const GET_NOTES = gql`
+query getNotes {
+    getNotes {
+        _id
+        username
+        email
+        notes {
+            noteId
+            title
+            text
+        }
+    }
+}
+`;
+
+export const GET_LINKS = gql`
+query getLinks {
+    getLinks {
+        _id
+        username
+        email
+        links {
+            linkId
+            name
+            link
         }
     }
 }

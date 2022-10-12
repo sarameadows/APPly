@@ -1,7 +1,6 @@
 const {gql} = require('apollo-server-express');
 
-// may need to adjust requirements and benefits to represent an array...?
-    // will mark them as arrays for now but may need to change it
+// requirements and benefits may need to be changed to simple strings later
 
 // no password for user in here because it should be inaccessible from the frontend
 const typeDefs = gql`
@@ -15,7 +14,7 @@ type User {
 }
 
 type Job {
-    jobId: ID
+    _id: ID
     dateApplied: String
     datePosted: String
     title: String
@@ -31,13 +30,13 @@ type Job {
 }
 
 type Link {
-    linkId: ID
+    _id: ID
     name: String
     link: String
 }
 
 type Note {
-    noteId: ID
+    _id: ID
     title: String
     text: String
 }
@@ -48,7 +47,6 @@ type Auth {
 }
 
 input JobData {
-    jobId: ID!
     dateApplied: String
     datePosted: String
     title: String
@@ -65,6 +63,8 @@ input JobData {
 
 type Query {
     me: User
+    getNotes: User
+    getLinks: User
 }
 
 type Mutation {
@@ -76,6 +76,7 @@ type Mutation {
     removeJob(jobId: ID!): User
     removeLink(linkId: ID!): User
     removeNote(noteId: ID!): User
+    updateJob(jobId: ID!, jobData: JobData!): User
 }
 `;
 
