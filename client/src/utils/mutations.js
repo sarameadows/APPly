@@ -34,7 +34,7 @@ mutation addJob($jobData: JobData!) {
         _id
         username
         jobs {
-            jobId
+            _id
             title
             company
         }
@@ -48,7 +48,7 @@ mutation addLink($name: String!, $link: String!) {
         _id
         username
         links {
-            linkId
+            _id
             name
             link
         }
@@ -62,7 +62,7 @@ mutation addNote($title: String, $text: String!) {
         _id
         username
         notes {
-            noteId
+            _id
             title
             text
         }
@@ -76,7 +76,7 @@ mutation removeJob($jobId: ID!) {
         _id
         username
         jobs {
-            jobId
+            _id
             title
             company
         }
@@ -90,7 +90,7 @@ mutation removeLink($linkId: ID!) {
         _id
         username
         links {
-            linkId
+            _id
             name
             link
         }
@@ -104,9 +104,33 @@ mutation removeNote($noteId: ID!) {
         _id
         username
         notes {
-            noteId
+            _id
             title
             text
+        }
+    }
+}
+`;
+
+export const UPDATE_JOB = gql`
+mutation updateJob($jobId: ID!, $jobData: JobData!) {
+    updateJob(jobId: $jobId, jobData: $jobData) {
+        _id
+        username
+        jobs {
+            _id
+            dateApplied
+            datePosted
+            title
+            company
+            link
+            location
+            officeSetting
+            pay
+            source
+            applicationStatus
+            requirements
+            benefits
         }
     }
 }

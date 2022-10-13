@@ -180,6 +180,29 @@ const resolvers = {
 
       throw new Error('Not logged in.');
     },
+
+    updateJob: async (_, args, context) => {
+        if (context.user) {
+            const {_id} = context.user;
+            const {jobId, jobData} = args;
+
+            // jobs.$ = the job located by the jobs._id === jobId filter
+            const user = await User.findOneAndUpdate(
+                {_id, "jobs._id": jobId},
+                {$set: {
+                    "jobs.$": {
+                        ..."jobs.$",
+                        ...jobData
+                    }
+                }},
+                {new: true}
+            );
+
+            return user;
+        }
+
+        throw new Error('Not logged in.');
+    }
   },
 };
 

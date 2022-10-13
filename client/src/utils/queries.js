@@ -8,7 +8,7 @@ query me {
         username
         email
         jobs {
-            jobId
+            _id
             dateApplied
             datePosted
             title
@@ -34,7 +34,7 @@ query getNotes {
         username
         email
         notes {
-            noteId
+            _id
             title
             text
         }
@@ -49,7 +49,7 @@ query getLinks {
         username
         email
         links {
-            linkId
+            _id
             name
             link
         }
