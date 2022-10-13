@@ -21,7 +21,7 @@ function SignUp(onClose) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Form State', formState);
+
     try {
       const { data } = await addUser({
         variables: {
@@ -30,9 +30,7 @@ function SignUp(onClose) {
           password: formState.password,
         },
       });
-      console.log('SHOULD HAVE ADDED USER NOW');
       const token = data.addUser.token;
-      console.log(token);
       Auth.login(token);
       <Navigate to="/dashboard" replace={true} />;
     } catch (err) {

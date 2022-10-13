@@ -8,10 +8,8 @@ import { useQuery } from '@apollo/client';
 import { GET_ME } from '../utils/queries';
 
 const NavBar = () => {
-  const [data, loading] = useQuery(GET_ME);
-
   return (
-    <Navbar bg="dark" expand="lg">
+    <Navbar id="nav-bar" expand="lg">
       <Container fluid>
         <Navbar.Brand href="/">{/* insert logo here */}</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -25,14 +23,7 @@ const NavBar = () => {
             )}
             {Auth.loggedIn && <Nav.Link href="/dashboard">Dashboard</Nav.Link>}
             <Nav.Link href="/resources">Resources</Nav.Link>
-            <NavDropdown
-              title={
-                data.savedJobs.length < 1
-                  ? 'Begin your search'
-                  : 'Continue your search'
-              }
-              id="site-dropdown"
-            >
+            <NavDropdown title="Search for jobs" id="site-dropdown">
               <NavDropdown.Item
                 href="https://www.linkedin.com/jobs/"
                 target="_blank"
