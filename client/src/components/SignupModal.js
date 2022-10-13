@@ -1,9 +1,9 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import Auth from '../utils/auth';
 import { useMutation } from '@apollo/client';
 import { ADD_USER } from '../utils/mutations';
 import { Navigate } from 'react-router-dom';
-import './LoginModal.css';
+// import './LoginModal.css';
 import {
   Modal,
   Form,
@@ -48,13 +48,12 @@ function SignUp(isSignupModalOpen, onClose) {
   };
 
   return (
-    <Modal id="signup" className="signup" show={handleShow} onHide={handleClose} centered>
-      {/* <div className="signup-box"> */}
-        <Modal.Header closeButton><h1>Sign up!</h1></Modal.Header>
-        <Modal.Body>
-          <Form className="signup-form" onSubmit={handleSubmit}>
-            <Form.Group>
-              <Form.Label htmlFor="username">Username:</Form.Label>
+    <Modal id="signup" className="signup" show={show} onHide={handleClose} centered>
+        <Modal.Header className='bg-white' closeButton><h1 className='bg-white'>Sign up!</h1></Modal.Header>
+        <Modal.Body className='bg-white'>
+          <Form className="signup-form bg-white" onSubmit={handleSubmit}>
+            <Form.Group className='bg-white'>
+              <Form.Label htmlFor="username" className='bg-white'>Username:</Form.Label>
               <Form.Control
                 type="text"
                 onChange={handleChange}
@@ -62,8 +61,8 @@ function SignUp(isSignupModalOpen, onClose) {
                 value={username}
               />
             </Form.Group>
-            <Form.Group>
-              <Form.Label htmlFor="password">Password:</Form.Label>
+            <Form.Group className='bg-white'>
+              <Form.Label htmlFor="password" className='bg-white mt-2'>Password:</Form.Label>
               <Form.Control
                 type="password"
                 onChange={handleChange}
@@ -71,8 +70,8 @@ function SignUp(isSignupModalOpen, onClose) {
                 value={password}
               />
             </Form.Group>
-            <Form.Group>
-              <Form.Label htmlFor="email">Email address:</Form.Label>
+            <Form.Group className='bg-white'>
+              <Form.Label htmlFor="email" className='bg-white'>Email address:</Form.Label>
               <Form.Control
                 type="email"
                 onChange={handleChange}
