@@ -7,9 +7,82 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import InputGroup from 'react-bootstrap/InputGroup';
 import { useQuery, useMutation } from '@apollo/client';
 import { GET_NOTES } from '../utils/queries';
+import { useState } from 'react';
+import { UPDATE_JOB, REMOVE_JOB } from '../utils/mutations';
 
-const JobDetail = ( {currentJob} ) => {
+const JobDetail = (currentJob, onClose, isModalOpen, setJobs, jobs) => {
   const [data] = useQuery(GET_NOTES);
+
+  const [jobFormData, setJobFormData] = useState({
+    dateApplied: '',
+    datePosted: '',
+    title: '',
+    company: '',
+    link: '',
+    location: '',
+    officeSetting: '',
+    source: '',
+    requirements: '',
+    applicationStatus: '',
+    benefits: '',
+    pay: '',
+  });
+
+  const [updateJob] = useMutation(UPDATE_JOB);
+  const [removeJob] = useMutation(REMOVE_JOB);
+
+  const [showAlert, setShowAlert] = useState(false);
+  const [show, setShow] = useState(isModalOpen);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
+  function handleInputChange(e) {
+    const { name, value } = e.target;
+
+    setJobFormData({ ...jobFormData, [name]: value });
+  }
+
+  const handleSaveSubmit = async (e) => {
+    e.preventDefault();
+
+    const form = e.currenTarget;
+    if (form.checkValidity() === false) {
+      e.preventDefault();
+      e.stopPropogation();
+    }
+
+    try {
+      await updateJob({
+        variables: { jobData: { ...jobFormData } },
+      });
+
+      setJobs(jobs);
+      handleClose();
+    } catch (err) {
+      console.error(err);
+      setShowAlert(true);
+    }
+
+    setJobFormData({
+      dateApplied: '',
+      datePosted: '',
+      title: '',
+      company: '',
+      link: '',
+      location: '',
+      officeSetting: '',
+      source: '',
+      requirements: '',
+      applicationStatus: '',
+      benefits: '',
+      pay: '',
+    });
+  };
+
+  const handleDeleteSubmit = async (e) => {
+    e.preventDefault();
+  };
 
   {
     /* Can insert progress bar as a sort of status indicator */
@@ -35,6 +108,8 @@ const JobDetail = ( {currentJob} ) => {
       aria-labelledby="contained-modal-title-center"
       centered
       scrollable
+      onHide={handleClose}
+      show={show}
     >
       <Modal.Header closeButton>
         <Modal.Title id="detail-title">{title}</Modal.Title>
@@ -155,7 +230,7 @@ const JobDetail = ( {currentJob} ) => {
               <Form.Control
                 as="textarea"
                 id="requirements"
-                araia-label="Requirements"
+                aria-label="Requirements"
                 value={requirements}
               />
             </InputGroup>
@@ -170,7 +245,7 @@ const JobDetail = ( {currentJob} ) => {
               <Form.Control
                 as="textarea"
                 id="benefits"
-                araia-label="benefits"
+                aria-label="benefits"
                 value={benefits}
               />
             </InputGroup>
@@ -185,7 +260,7 @@ const JobDetail = ( {currentJob} ) => {
               <Form.Control
                 as="textarea"
                 id="notes"
-                araia-label="Personal Notes"
+                aria-label="Personal Notes"
                 value={data.notes.text}
               />
             </InputGroup>
@@ -193,8 +268,9 @@ const JobDetail = ( {currentJob} ) => {
         </Row>
       </Modal.Body>
       <Modal.Footer>
-        <Button variant="success">Save</Button>
-        <Button variant="danger">Delete</Button>
+        <Button variant="success" onClick={() => handleSaveSubmit()}>
+          Save
+        </Button>
         <Button variant="secondary">Cancel</Button>
       </Modal.Footer>
     </Modal>

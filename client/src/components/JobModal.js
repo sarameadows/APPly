@@ -12,7 +12,7 @@ import {
 import { useMutation } from '@apollo/client';
 import { ADD_JOB } from '../utils/mutations';
 
-function JobContainer(isJobEntryModalOpen) {
+function JobContainer(isJobEntryModalOpen, jobs, setJobs) {
   const [jobFormData, setJobFormData] = useState({
     dateApplied: '',
     datePosted: '',
@@ -57,8 +57,12 @@ function JobContainer(isJobEntryModalOpen) {
     try {
       console.log(jobFormData);
       await addJob({
-        variables: { jobData: {...jobFormData} },
+        variables: { jobData: { ...jobFormData } },
       });
+
+      console.log(jobs);
+      setJobs(jobs, ...jobFormData);
+      handleClose();
     } catch (e) {
       console.error(e);
       setShowAlert(true);
@@ -180,7 +184,7 @@ function JobContainer(isJobEntryModalOpen) {
                   label="in person"
                   onChange={handleInputChange}
                   name="officeSetting"
-                  value='in person'
+                  value="in person"
                 />
                 <Form.Check
                   type="radio"
@@ -263,7 +267,9 @@ function JobContainer(isJobEntryModalOpen) {
                 value={jobFormData.applicationStatus}
               />
             </Form.Group>
-            <Button type="submit" variant="btn-lg btn-dark" className='mt-3'>Submit</Button>
+            <Button type="submit" variant="btn-lg btn-dark" className="mt-3">
+              Submit
+            </Button>
           </Form>
         </Modal.Body>
       </Modal>

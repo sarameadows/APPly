@@ -24,10 +24,10 @@ const Dashboard = () => {
   console.log(data);
   // console.log('LOADING', loading);
   // console.log('DATA', data);
-  const userInfo = data?.me.jobs || [] ;
-  console.log(userInfo); 
+  const userInfo = data?.me.jobs || [];
+  console.log(userInfo);
 
-  const [jobs, setJobs] = useState(data?.me.jobs || []);
+  const [jobs, setJobs] = useState(userInfo || []);
   console.log('JOBS', jobs);
 
   const ToggleDetailModal = (job, i) => {
@@ -74,28 +74,28 @@ const Dashboard = () => {
   ];
 
   const filterLocation = (selectedLocation) => {
-    const newJob = data.jobs.filter((newVal) => {
+    const newJob = data.me.jobs.filter((newVal) => {
       return newVal.location.includes(selectedLocation);
     });
     setJobs(newJob);
   };
 
   const filterOfficeSetting = (selectedOfficeSetting) => {
-    const newJob = data.jobs.filter((newVal) => {
+    const newJob = data.me.jobs.filter((newVal) => {
       return newVal.officeSetting.includes(selectedOfficeSetting);
     });
     setJobs(newJob);
   };
 
   const filterSource = (selectedSource) => {
-    const newJob = data.jobs.filter((newVal) => {
+    const newJob = data.me.jobs.filter((newVal) => {
       return newVal.source.includes(selectedSource);
     });
     setJobs(newJob);
   };
 
   const filterApplicationStatus = (selectedApplicationStatus) => {
-    const newJob = data.jobs.filter((newVal) => {
+    const newJob = data.me.jobs.filter((newVal) => {
       return newVal.applicationStatus.includes(selectedApplicationStatus);
     });
     setJobs(newJob);
@@ -111,19 +111,32 @@ const Dashboard = () => {
   // }, [data, loading]);
 
   return (
-    <Container fluid>
+    <Container fluid className="vw-100 vh-100">
       <NavBar />
       <div id="dashboard-container" className="d-flex">
         <div>
-          {isJobEntryModalOpen && <JobContainer props={isJobEntryModalOpen} onClose={ToggleEntryModal} />}
-        </div>
-        <div>
-          {isJobDetailModalOpen && (
-            <JobDetail currentJob={currentJob} onClose={ToggleDetailModal} />
+          {isJobEntryModalOpen && (
+            <JobContainer
+              // props={[isJobEntryModalOpen, userInfo, setJobs]}
+              isJobEntryModalOpen={isJobEntryModalOpen}
+              jobs={userInfo}
+              setJobs={setJobs}
+              onClose={ToggleEntryModal}
+            />
           )}
         </div>
+        <div>
+          {isJobDetailModalOpen && <JobDetail currentJob={currentJob} />}
+        </div>
         <div id="jobs-filter-bar" className="ms-2 mt-3 me-5">
-          <DropdownButton variant='dark btn-lg'
+          <Button
+            className="btn-dark btn-lg mb-3"
+            onClick={() => setJobs(userInfo)}
+          >
+            Select All
+          </Button>
+          <DropdownButton
+            variant="dark btn-lg"
             className="filter-btn mb-3"
             id="location-filter"
             title="Location"
@@ -141,7 +154,8 @@ const Dashboard = () => {
               );
             })}
           </DropdownButton>
-          <DropdownButton variant='dark btn-lg'
+          <DropdownButton
+            variant="dark btn-lg"
             className="filter-btn mb-3"
             id="office-setting-filter"
             title="Office Setting"
@@ -159,7 +173,8 @@ const Dashboard = () => {
               );
             })}
           </DropdownButton>
-          <DropdownButton variant='dark btn-lg'
+          <DropdownButton
+            variant="dark btn-lg"
             className="filter-btn mb-3"
             id="source-filter"
             title="Posting Source"
@@ -177,7 +192,8 @@ const Dashboard = () => {
               );
             })}
           </DropdownButton>
-          <DropdownButton variant='dark btn-lg'
+          <DropdownButton
+            variant="dark btn-lg"
             className="dropdown-btn mb-5"
             id="application-status-filter"
             title="Application Status"
@@ -195,10 +211,12 @@ const Dashboard = () => {
               );
             })}
           </DropdownButton>
-          <Button className='btn-dark btn-lg' onClick={ToggleEntryModal}>Enter a new job</Button>
+          <Button className="btn-dark btn-lg" onClick={ToggleEntryModal}>
+            Enter a new job
+          </Button>
         </div>
-        <div className="mt-3 d-flex justify-content-center align-items-start">
-          <JobList jobs={jobs} toggleDetailModal={ToggleDetailModal} />
+        <div className="mt-3 d-flex justify-content-evenly align-items-start w-100">
+          <JobList jobs={jobs} onClick={ToggleDetailModal} setJobs={setJobs} />
         </div>
       </div>
     </Container>

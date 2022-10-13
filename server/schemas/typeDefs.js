@@ -1,17 +1,17 @@
-const {gql} = require('apollo-server-express');
+const { gql } = require('apollo-server-express');
 
 // no password for user in here because it should be inaccessible from the frontend
 const typeDefs = gql`
-type User {
+  type User {
     _id: ID
     username: String
     email: String
     jobs: [Job]
     notes: [Note]
     links: [Link]
-}
+  }
 
-type Job {
+  type Job {
     _id: ID
     dateApplied: String
     datePosted: String
@@ -25,26 +25,26 @@ type Job {
     applicationStatus: String
     requirements: String
     benefits: String
-}
+  }
 
-type Link {
+  type Link {
     _id: ID
     name: String
     link: String
-}
+  }
 
-type Note {
+  type Note {
     _id: ID
     title: String
     text: String
-}
+  }
 
-type Auth {
+  type Auth {
     token: ID
     user: User
-}
+  }
 
-input JobData {
+  input JobData {
     dateApplied: String
     datePosted: String
     title: String
@@ -57,15 +57,15 @@ input JobData {
     applicationStatus: String
     requirements: String
     benefits: String
-}
+  }
 
-type Query {
+  type Query {
     me: User
     getNotes: User
     getLinks: User
-}
+  }
 
-type Mutation {
+  type Mutation {
     login(email: String!, password: String!): Auth
     addUser(username: String!, email: String!, password: String!): Auth
     addJob(jobData: JobData!): User
@@ -75,7 +75,7 @@ type Mutation {
     removeLink(linkId: ID!): User
     removeNote(noteId: ID!): User
     updateJob(jobId: ID!, jobData: JobData!): User
-}
+  }
 `;
 
 module.exports = typeDefs;
