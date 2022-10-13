@@ -1,8 +1,8 @@
 import React from 'react';
-import { Container } from 'react-bootstrap/Container';
-import { Nav } from 'react-bootstrap/Nav';
-import { Navbar } from 'react-bootstrap/Navbar';
-import { NavDropdown } from 'react-bootstrap/NavDropdown';
+import Container from 'react-bootstrap/Container';
+import Nav from 'react-bootstrap/Nav';
+import Navbar from 'react-bootstrap/Navbar';
+import NavDropdown from 'react-bootstrap/NavDropdown';
 import Auth from '../utils/auth';
 import { useQuery } from '@apollo/client';
 import { GET_ME } from '../utils/queries';
@@ -23,6 +23,7 @@ const NavBar = () => {
                 Logout
               </Nav.Link>
             )}
+            {Auth.loggedIn && <Nav.Link href="/dashboard">Dashboard</Nav.Link>}
             <Nav.Link href="/resources">Resources</Nav.Link>
             <NavDropdown
               title={

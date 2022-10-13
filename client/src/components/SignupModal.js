@@ -22,9 +22,8 @@ function SignUp(onClose) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log('Form State', formState);
-    console.log('ERROR', error);
     try {
-      const mutationResponse = await addUser({
+      const { data } = await addUser({
         variables: {
           username: formState.username,
           email: formState.email,
@@ -32,7 +31,7 @@ function SignUp(onClose) {
         },
       });
       console.log('SHOULD HAVE ADDED USER NOW');
-      const token = mutationResponse.data.addUser.token;
+      const token = data.addUser.token;
       console.log(token);
       Auth.login(token);
       <Navigate to="/dashboard" replace={true} />;
