@@ -11,18 +11,19 @@ const NavBar = () => {
   return (
     <Navbar id="nav-bar" expand="lg">
       <Container fluid>
-        <Navbar.Brand href="/"><img style={{ width: 120, height: 40, margin: 20 }} src={require(`../assets/images/APPly.png`)} alt="" /></Navbar.Brand>
+        <Navbar.Brand href="/"><img style={{ width: 160, height: 50, margin: 20 }} src={require(`../assets/images/APPly.png`)} alt="" /></Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav"/>
         <Navbar.Collapse id="navbar" >
           <Nav className="me-auto">
-            <Nav.Link href="/">Home</Nav.Link>
+            {/* <Nav.Link href="/">Home</Nav.Link> */}
+            
+            {Auth.loggedIn && <Nav.Link href="/dashboard">Dashboard</Nav.Link>}
+            <Nav.Link href="/resources">Resources</Nav.Link>
             {Auth.loggedIn && (
               <Nav.Link href="/" onClick={() => Auth.logout}>
                 Logout
               </Nav.Link>
             )}
-            {Auth.loggedIn && <Nav.Link href="/dashboard">Dashboard</Nav.Link>}
-            <Nav.Link href="/resources">Resources</Nav.Link>
             <NavDropdown title="Search for jobs" id="site-dropdown">
               <NavDropdown.Item
                 href="https://www.linkedin.com/jobs/"

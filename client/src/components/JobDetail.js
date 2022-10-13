@@ -8,7 +8,7 @@ import InputGroup from 'react-bootstrap/InputGroup';
 import { useQuery, useMutation } from '@apollo/client';
 import { GET_NOTES } from '../utils/queries';
 
-const JobDetail = ({ currentJob }) => {
+const JobDetail = ( {currentJob} ) => {
   const [data] = useQuery(GET_NOTES);
 
   {
