@@ -48,22 +48,32 @@ const JobList = ({ jobs, onClick, setJobs }) => {
       {jobs.map((job, _id, i) => {
         return (
           <Card
-            className="job-card mb-3 me-3 w-100"
+            className="job-card mb-3 me-3 w-25 h-100 border-dark shadow"
             key={_id}
             onClick={() => toggleDetailModal(job, i)}
           >
-            <Card.Body>
-              <Card.Title>{job.title}</Card.Title>
-              <Card.Subtitle className="mb-3">
-                Company: {job.company}
+            <Card.Body className="m-0">
+              <Card.Title
+                id="card-title"
+                className="card-header border-primary rounded-top text-light bg-primary h-25"
+              >
+                {job.title}
+              </Card.Title>
+              <Card.Subtitle className="text-end mt-0 pe-3 pt-2 pb-2 text-light bg-dark border-dark border-start border-end border-bottom rounded-bottom">
+                {job.company}
               </Card.Subtitle>
-              <Card.Text className="mb-5">
-                Location: {job.location}
+              <Card.Text className="position-absolute w-100 ps-2 top-50 lh-lg">
+                <strong>Location: </strong>
+                {job.location}
                 <br />
-                Source: {job.source}
+                <strong>Source: </strong>
+                {job.source}
+                <br />
+                <strong>Comp: </strong>
+                {job.pay}
               </Card.Text>
               <Card.Link
-                className="position-absolute bottom-0 mb-3"
+                className="position-absolute bottom-0 mb-3 text-decoration-none text-primary fw-bold"
                 href={job.link}
               >
                 Direct Link
