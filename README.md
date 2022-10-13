@@ -18,6 +18,8 @@ Hunting for a job is easier when you’re organized. Keep track of all your appl
 * Bcrypt
 
 ## Screenshot
+<img width="769" alt="Screen Shot 2022-10-13 at 4 11 43 PM" src="https://user-images.githubusercontent.com/103394634/195711524-0445738f-4928-49f0-b9bd-a7e2dc1a049e.png">
+
 
 ## Made by
 Sara Meadows, Louie Moretty, Dustin Pezley, Finn Stitcher
