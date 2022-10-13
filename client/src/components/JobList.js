@@ -1,6 +1,6 @@
 import Card from 'react-bootstrap/Card';
 
-const JobList = (jobs, toggleDetailModal) => {
+const JobList = ({jobs, toggleDetailModal}) => {
   return (
     <div id="jobs-container d-flex justify-content-around">
       {jobs.map((job, _id) => {

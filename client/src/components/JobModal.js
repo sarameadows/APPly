@@ -28,16 +28,19 @@ function JobContainer(isJobEntryModalOpen) {
     pay: '',
   });
   const [validated] = useState(false);
-  const [showAlert, setShowAlert] = useState(isJobEntryModalOpen);
+  const [showAlert, setShowAlert] = useState(false);
   const [addJob] = useMutation(ADD_JOB);
 
-  const [show, setShow] = useState(false);
+  const [show, setShow] = useState(isJobEntryModalOpen);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
   function handleInputChange(e) {
     const { name, value } = e.target;
+
+    console.log(name);
+    console.log(value);
     setJobFormData({ ...jobFormData, [name]: value });
   }
 
@@ -52,8 +55,9 @@ function JobContainer(isJobEntryModalOpen) {
     }
 
     try {
+      console.log(jobFormData);
       await addJob({
-        variables: { ...jobFormData },
+        variables: { jobData: {...jobFormData} },
       });
     } catch (e) {
       console.error(e);
@@ -174,20 +178,23 @@ function JobContainer(isJobEntryModalOpen) {
                   inline
                   type="radio"
                   label="in person"
+                  onChange={handleInputChange}
                   name="officeSetting"
-                  value={jobFormData.officeSetting}
+                  value='in person'
                 />
                 <Form.Check
                   type="radio"
                   label="hybrid"
+                  onChange={handleInputChange}
                   name="officeSetting"
-                  value={jobFormData.officeSetting}
+                  value="hybrid"
                 />
                 <Form.Check
                   type="radio"
                   label="remote"
+                  onChange={handleInputChange}
                   name="officeSetting"
-                  value={jobFormData.officeSetting}
+                  value="remote"
                 />
               </Col>
             </Form.Group>
