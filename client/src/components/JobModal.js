@@ -82,7 +82,7 @@ function JobContainer(isJobEntryModalOpen) {
   // noValidate validated={validated}
   return (
     <>
-      <Modal show={show} onHide={handleClose} centered>
+      <Modal show={handleShow} onHide={handleClose} centered>
         <Modal.Header closeButton>
           <h1>Add a new job</h1>
         </Modal.Header>
@@ -217,7 +217,7 @@ function JobContainer(isJobEntryModalOpen) {
               </Form.Label>
               <Form.Control
                 className="col"
-                type="text"
+                as="textarea" rows={2}
                 placeholder="ex. healthcare, pto"
                 name="benefits"
                 onChange={handleInputChange}
@@ -230,7 +230,7 @@ function JobContainer(isJobEntryModalOpen) {
               </Form.Label>
               <Form.Control
                 className="col"
-                type="text"
+                as="textarea" rows={2}
                 placeholder="ex. certificates, degree"
                 name="requirements"
                 onChange={handleInputChange}
