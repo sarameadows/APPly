@@ -12,7 +12,7 @@ import {
 import { useMutation } from '@apollo/client';
 import { ADD_JOB } from '../utils/mutations';
 
-function JobContainer() {
+function JobContainer(isJobEntryModalOpen) {
   const [jobFormData, setJobFormData] = useState({
     dateApplied: '',
     datePosted: '',
@@ -31,13 +31,16 @@ function JobContainer() {
   const [showAlert, setShowAlert] = useState(false);
   const [addJob] = useMutation(ADD_JOB);
 
-  const [show, setShow] = useState(false);
+  const [show, setShow] = useState(isJobEntryModalOpen);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
   function handleInputChange(e) {
     const { name, value } = e.target;
+
+    console.log(name);
+    console.log(value);
     setJobFormData({ ...jobFormData, [name]: value });
   }
 
@@ -52,8 +55,9 @@ function JobContainer() {
     }
 
     try {
-      const { data } = await addJob({
-        variables: { ...jobFormData },
+      console.log(jobFormData);
+      await addJob({
+        variables: { jobData: {...jobFormData} },
       });
     } catch (e) {
       console.error(e);
@@ -78,10 +82,6 @@ function JobContainer() {
   // noValidate validated={validated}
   return (
     <>
-      {/* demo button for modal */}
-      <Button variant="primary" onClick={handleShow}>
-        Launch demo modal
-      </Button>
       <Modal show={show} onHide={handleClose} centered>
         <Modal.Header closeButton>
           <h1>Add a new job</h1>
@@ -178,20 +178,23 @@ function JobContainer() {
                   inline
                   type="radio"
                   label="in person"
+                  onChange={handleInputChange}
                   name="officeSetting"
-                  value={jobFormData.officeSetting}
+                  value='in person'
                 />
                 <Form.Check
                   type="radio"
                   label="hybrid"
+                  onChange={handleInputChange}
                   name="officeSetting"
-                  value={jobFormData.officeSetting}
+                  value="hybrid"
                 />
                 <Form.Check
                   type="radio"
                   label="remote"
+                  onChange={handleInputChange}
                   name="officeSetting"
-                  value={jobFormData.officeSetting}
+                  value="remote"
                 />
               </Col>
             </Form.Group>
@@ -260,13 +263,9 @@ function JobContainer() {
                 value={jobFormData.applicationStatus}
               />
             </Form.Group>
+            <Button type="submit" variant="btn-lg btn-dark" className='mt-3'>Submit</Button>
           </Form>
         </Modal.Body>
-        <Modal.Footer>
-          <Button type="submit" variant="btn-lg">
-            Submit
-          </Button>
-        </Modal.Footer>
       </Modal>
     </>
   );

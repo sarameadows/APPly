@@ -11,9 +11,9 @@ const NavBar = () => {
   return (
     <Navbar id="nav-bar" expand="lg">
       <Container fluid>
-        <Navbar.Brand href="/">{/* insert logo here */}</Navbar.Brand>
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <Navbar.Collapse id="navbar">
+        <Navbar.Brand href="/"><img style={{ width: 120, height: 40, margin: 20 }} src={require(`../assets/images/APPly.png`)} alt="" /></Navbar.Brand>
+        <Navbar.Toggle aria-controls="basic-navbar-nav"/>
+        <Navbar.Collapse id="navbar" >
           <Nav className="me-auto">
             <Nav.Link href="/">Home</Nav.Link>
             {Auth.loggedIn && (
