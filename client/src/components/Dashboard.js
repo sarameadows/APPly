@@ -17,21 +17,22 @@ const Dashboard = () => {
   const [isJobDetailModalOpen, setJobDetailModalOpen] = useState(false);
   const [currentJob, setCurrentJob] = useState();
 
-  const userData = Auth.getProfile();
-  // console.log(userData);
-  // console.log(userData.data.username);
   const { data, loading } = useQuery(GET_ME);
-  console.log(data);
-  // console.log('LOADING', loading);
-  // console.log('DATA', data);
-  const userInfo = data?.me.jobs || [];
-  console.log(userInfo);
+  console.log('data from GET_ME', data);
+  const jobsFromData = data?.me.jobs || [];
+  console.log('data.me.jobs', jobsFromData);
 
-  const [jobs, setJobs] = useState(userInfo || []);
-  console.log('JOBS', jobs);
+  // spread operator + array brackets initialized the state correctly
+  const [jobs, setJobs] = useState([...jobsFromData]);
+  console.log('jobs', jobs);
+
+  // accounting for jobsFromData not filling instantly
+  useEffect(() => {
+    setJobs(jobsFromData);
+  }, [jobsFromData]);
 
   const ToggleDetailModal = (job, i) => {
-    console.log(job);
+    console.log('job, in toggledetailmodal', job);
     setCurrentJob({ ...job, index: i });
     setJobDetailModalOpen(!isJobDetailModalOpen);
   };
@@ -119,7 +120,7 @@ const Dashboard = () => {
             <JobContainer
               // props={[isJobEntryModalOpen, userInfo, setJobs]}
               isJobEntryModalOpen={isJobEntryModalOpen}
-              jobs={userInfo}
+              jobs={jobsFromData}
               setJobs={setJobs}
               onClose={ToggleEntryModal}
             />
@@ -131,7 +132,7 @@ const Dashboard = () => {
         <div id="jobs-filter-bar" className="ms-2 mt-3 me-5">
           <Button
             className="btn-dark btn-lg mb-3"
-            onClick={() => setJobs(userInfo)}
+            onClick={() => setJobs(jobsFromData)}
           >
             Select All
           </Button>
