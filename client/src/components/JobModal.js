@@ -12,7 +12,7 @@ import {
 import { useMutation } from '@apollo/client';
 import { ADD_JOB } from '../utils/mutations';
 
-function JobContainer() {
+function JobContainer(isJobEntryModalOpen) {
   const [jobFormData, setJobFormData] = useState({
     dateApplied: '',
     datePosted: '',
@@ -28,7 +28,7 @@ function JobContainer() {
     pay: '',
   });
   const [validated] = useState(false);
-  const [showAlert, setShowAlert] = useState(false);
+  const [showAlert, setShowAlert] = useState(isJobEntryModalOpen);
   const [addJob] = useMutation(ADD_JOB);
 
   const [show, setShow] = useState(false);
@@ -52,7 +52,7 @@ function JobContainer() {
     }
 
     try {
-      const { data } = await addJob({
+      await addJob({
         variables: { ...jobFormData },
       });
     } catch (e) {
@@ -256,13 +256,9 @@ function JobContainer() {
                 value={jobFormData.applicationStatus}
               />
             </Form.Group>
+            <Button type="submit" variant="btn-lg btn-dark" className='mt-3'>Submit</Button>
           </Form>
         </Modal.Body>
-        <Modal.Footer>
-          <Button type="submit" variant="btn-lg">
-            Submit
-          </Button>
-        </Modal.Footer>
       </Modal>
     </>
   );

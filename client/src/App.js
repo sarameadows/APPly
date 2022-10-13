@@ -34,9 +34,9 @@ function App() {
     <ApolloProvider client={client}>
       <Router>
         <Routes>
-          <Route path="/" element={<Splash />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path='/resources' element={<Resources />} />
+          <Route exact path="/" element={<Splash />} />
+          <Route exact path="/dashboard" element={<Dashboard />} />
+          <Route exact path='/resources' element={<Resources />} />
           {/*<Route exact path="/resources" element={Resources} />*/}
           <Route render={() => <h1 className="display-2">Wrong page!</h1>} />
         </Routes>

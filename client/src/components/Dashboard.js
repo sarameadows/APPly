@@ -114,7 +114,7 @@ const Dashboard = () => {
       <NavBar />
       <div id="dashboard-container" className="d-flex">
         <div>
-          {isJobEntryModalOpen && <JobContainer onClose={ToggleEntryModal} />}
+          {isJobEntryModalOpen && <JobContainer props={isJobEntryModalOpen} onClose={ToggleEntryModal} />}
         </div>
         <div>
           {isJobDetailModalOpen && (
