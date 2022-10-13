@@ -1,0 +1,9 @@
+#dashboard-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.filter-btn {
+  margin-bottom: 5rem;
+}

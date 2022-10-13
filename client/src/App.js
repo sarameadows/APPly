@@ -33,7 +33,6 @@ function App() {
   return (
     <ApolloProvider client={client}>
       <Router>
-        <Splash />
         <Routes>
           <Route path="/" element={<Splash />} />
           <Route path="/dashboard" element={<Dashboard />} />

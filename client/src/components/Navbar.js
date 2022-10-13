@@ -1,17 +1,15 @@
 import React from 'react';
-import { Container } from 'react-bootstrap/Container';
-import { Nav } from 'react-bootstrap/Nav';
-import { Navbar } from 'react-bootstrap/Navbar';
-import { NavDropdown } from 'react-bootstrap/NavDropdown';
+import Container from 'react-bootstrap/Container';
+import Nav from 'react-bootstrap/Nav';
+import Navbar from 'react-bootstrap/Navbar';
+import NavDropdown from 'react-bootstrap/NavDropdown';
 import Auth from '../utils/auth';
 import { useQuery } from '@apollo/client';
 import { GET_ME } from '../utils/queries';
 
 const NavBar = () => {
-  const [data, loading] = useQuery(GET_ME);
-
   return (
-    <Navbar bg="dark" expand="lg">
+    <Navbar id="nav-bar" expand="lg">
       <Container fluid>
         <Navbar.Brand href="/">{/* insert logo here */}</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -23,15 +21,9 @@ const NavBar = () => {
                 Logout
               </Nav.Link>
             )}
+            {Auth.loggedIn && <Nav.Link href="/dashboard">Dashboard</Nav.Link>}
             <Nav.Link href="/resources">Resources</Nav.Link>
-            <NavDropdown
-              title={
-                data.savedJobs.length < 1
-                  ? 'Begin your search'
-                  : 'Continue your search'
-              }
-              id="site-dropdown"
-            >
+            <NavDropdown title="Search for jobs" id="site-dropdown">
               <NavDropdown.Item
                 href="https://www.linkedin.com/jobs/"
                 target="_blank"
