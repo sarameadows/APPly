@@ -82,7 +82,7 @@ function JobContainer(isJobEntryModalOpen) {
   // noValidate validated={validated}
   return (
     <>
-      <Modal show={handleShow} onHide={handleClose} centered>
+      <Modal show={show} onHide={handleClose} centered>
         <Modal.Header closeButton>
           <h1>Add a new job</h1>
         </Modal.Header>
