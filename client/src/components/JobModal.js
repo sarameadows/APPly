@@ -221,7 +221,7 @@ function JobContainer(isJobEntryModalOpen, jobs, setJobs) {
               </Form.Label>
               <Form.Control
                 className="col"
-                type="text"
+                as="textarea" rows={2}
                 placeholder="ex. healthcare, pto"
                 name="benefits"
                 onChange={handleInputChange}
@@ -234,7 +234,7 @@ function JobContainer(isJobEntryModalOpen, jobs, setJobs) {
               </Form.Label>
               <Form.Control
                 className="col"
-                type="text"
+                as="textarea" rows={2}
                 placeholder="ex. certificates, degree"
                 name="requirements"
                 onChange={handleInputChange}

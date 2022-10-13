@@ -21,6 +21,7 @@ const Dashboard = () => {
   // console.log(userData);
   // console.log(userData.data.username);
   const { data, loading } = useQuery(GET_ME);
+  console.log(data);
   // console.log('LOADING', loading);
   // console.log('DATA', data);
   const userInfo = data?.me.jobs || [];
@@ -30,6 +31,7 @@ const Dashboard = () => {
   console.log('JOBS', jobs);
 
   const ToggleDetailModal = (job, i) => {
+    console.log(job);
     setCurrentJob({ ...job, index: i });
     setJobDetailModalOpen(!isJobDetailModalOpen);
   };
@@ -127,10 +129,14 @@ const Dashboard = () => {
           {isJobDetailModalOpen && <JobDetail currentJob={currentJob} />}
         </div>
         <div id="jobs-filter-bar" className="ms-2 mt-3 me-5">
-          <Button className="btn mb-3" onClick={() => setJobs(userInfo)}>
+          <Button
+            className="btn-dark btn-lg mb-3"
+            onClick={() => setJobs(userInfo)}
+          >
             Select All
           </Button>
           <DropdownButton
+            variant="dark btn-lg"
             className="filter-btn mb-3"
             id="location-filter"
             title="Location"
@@ -149,6 +155,7 @@ const Dashboard = () => {
             })}
           </DropdownButton>
           <DropdownButton
+            variant="dark btn-lg"
             className="filter-btn mb-3"
             id="office-setting-filter"
             title="Office Setting"
@@ -167,6 +174,7 @@ const Dashboard = () => {
             })}
           </DropdownButton>
           <DropdownButton
+            variant="dark btn-lg"
             className="filter-btn mb-3"
             id="source-filter"
             title="Posting Source"
@@ -185,6 +193,7 @@ const Dashboard = () => {
             })}
           </DropdownButton>
           <DropdownButton
+            variant="dark btn-lg"
             className="dropdown-btn mb-5"
             id="application-status-filter"
             title="Application Status"
@@ -202,7 +211,9 @@ const Dashboard = () => {
               );
             })}
           </DropdownButton>
-          <Button onClick={ToggleEntryModal}>Enter a new job</Button>
+          <Button className="btn-dark btn-lg" onClick={ToggleEntryModal}>
+            Enter a new job
+          </Button>
         </div>
         <div className="mt-3 d-flex justify-content-evenly align-items-start w-100">
           <JobList jobs={jobs} onClick={ToggleDetailModal} setJobs={setJobs} />

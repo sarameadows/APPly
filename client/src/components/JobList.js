@@ -32,7 +32,10 @@ const JobList = ({ jobs, onClick, setJobs }) => {
   };
 
   return (
-    <div id="jobs-container" className="d-flex card-deck h-75">
+    <div
+      id="jobs-container"
+      className="d-flex justify-content-around flex-wrap card-deck h-75"
+    >
       {isModalOpen && (
         <JobDetail
           currentJob={currentJob}

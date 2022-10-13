@@ -3,7 +3,7 @@ import { useMutation } from '@apollo/client';
 import { LOGIN } from '../utils/mutations';
 import Auth from '../utils/auth';
 import { Navigate } from 'react-router-dom';
-import './LoginModal.css';
+// import './LoginModal.css';
 import {
   Modal,
   Form,
@@ -44,13 +44,12 @@ function Login(isLoginModalOpen, onClose) {
   };
 
   return (
-    <>
-      <Modal id="login" className="login" show={handleShow} onHide={handleClose} centered>
-          <Modal.Header closeButton><h1>Login!</h1></Modal.Header>
-          <Modal.Body>
-            <Form className="login-form" onSubmit={handleSubmit}>
-              <Form.Group>
-                <Form.Label htmlFor="username">Email:</Form.Label>
+      <Modal id="login" className="login" show={show} onHide={handleClose} centered>
+          <Modal.Header className='bg-white' closeButton><h1 className='bg-white'>Login!</h1></Modal.Header>
+          <Modal.Body className='bg-white'>
+            <Form className="login-form bg-white" onSubmit={handleSubmit}>
+              <Form.Group className='bg-white'>
+                <Form.Label htmlFor="username" className='bg-white'>Email:</Form.Label>
                 <Form.Control
                   type="email"
                   onChange={handleChange}
@@ -58,8 +57,8 @@ function Login(isLoginModalOpen, onClose) {
                   value={email}
                 />
               </Form.Group>
-              <Form.Group>
-                <Form.Label htmlFor="password">Password:</Form.Label>
+              <Form.Group className='bg-white'>
+                <Form.Label htmlFor="password" className='bg-white'>Password:</Form.Label>
                 <Form.Control
                   type="password"
                   onChange={handleChange}
@@ -71,7 +70,6 @@ function Login(isLoginModalOpen, onClose) {
             </Form>
           </Modal.Body>
       </Modal>
-    </>
   );
 }
 
