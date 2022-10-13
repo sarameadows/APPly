@@ -21,8 +21,8 @@ const Splash = () => {
 
   return (
     <div>
-      {isLoginModalOpen && <LoginModal onClose={toggleLoginModal} />}
-      {isSignupModalOpen && <SignupModal onClose={toggleSignupModal} />}
+      {isLoginModalOpen && <LoginModal props={isLoginModalOpen} onClose={toggleLoginModal} />}
+      {isSignupModalOpen && <SignupModal props={isSignupModalOpen} onClose={toggleSignupModal} />}
       <Container fluid id="splash-container">
         <img id="splash-logo" src={MainLogo} alt="APPly logo" />
         <ButtonGroup id="splash-btn-group" aria-label="login and signup">

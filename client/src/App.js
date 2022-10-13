@@ -8,7 +8,7 @@ import {
 } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 import Dashboard from './components/Dashboard.js';
-// import Resources from './components/Resources.js';
+import Resources from './components/Resources.js';
 
 const httpLink = createHttpLink({
   uri: '/graphql',
@@ -36,6 +36,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Splash />} />
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path='/resources' element={<Resources />} />
           {/*<Route exact path="/resources" element={Resources} />*/}
           <Route render={() => <h1 className="display-2">Wrong page!</h1>} />
         </Routes>

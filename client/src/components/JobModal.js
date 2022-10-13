@@ -78,10 +78,6 @@ function JobContainer() {
   // noValidate validated={validated}
   return (
     <>
-      {/* demo button for modal */}
-      <Button variant="primary" onClick={handleShow}>
-        Launch demo modal
-      </Button>
       <Modal show={show} onHide={handleClose} centered>
         <Modal.Header closeButton>
           <h1>Add a new job</h1>

@@ -4,14 +4,23 @@ import { useMutation } from '@apollo/client';
 import { ADD_USER } from '../utils/mutations';
 import { Navigate } from 'react-router-dom';
 import './LoginModal.css';
+import {
+  Modal,
+  Form,
+  Button,
+} from 'react-bootstrap';
 
-function SignUp(onClose) {
+function SignUp(isSignupModalOpen, onClose) {
   const [formState, setFormState] = useState({
     username: '',
     password: '',
     email: '',
   });
   const { username, password, email } = formState;
+  const [show, setShow] = useState(isSignupModalOpen);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
   const [addUser, { error }] = useMutation(ADD_USER);
 
@@ -39,51 +48,42 @@ function SignUp(onClose) {
   };
 
   return (
-    <div id="signup" className="signup">
-      <div className="signup-box">
-        <h3>Sign up!</h3>
-        <form className="signup-form" onSubmit={handleSubmit}>
-          <div>
-            <label htmlFor="username">Username:</label>
-            <input
-              type="text"
-              onChange={handleChange}
-              name="username"
-              value={username}
-            />
-          </div>
-          <div>
-            <label htmlFor="password">Password:</label>
-            <input
-              type="password"
-              onChange={handleChange}
-              name="password"
-              value={password}
-            />
-          </div>
-          <div>
-            <label htmlFor="email">Email address:</label>
-            <input
-              type="email"
-              onChange={handleChange}
-              name="email"
-              value={email}
-            />
-          </div>
-          {/*        <div>
-            <label htmlFor="github">GitHub:</label>
-            <input
-              type="text"
-              defaultValue={github}
-              onChange={handleChange}
-              name="github"
-              value={github}
-            />
-  </div> */}
-          <button type="submit">Submit</button>
-        </form>
-      </div>
-    </div>
+    <Modal id="signup" className="signup" show={handleShow} onHide={handleClose} centered>
+      {/* <div className="signup-box"> */}
+        <Modal.Header closeButton><h1>Sign up!</h1></Modal.Header>
+        <Modal.Body>
+          <Form className="signup-form" onSubmit={handleSubmit}>
+            <Form.Group>
+              <Form.Label htmlFor="username">Username:</Form.Label>
+              <Form.Control
+                type="text"
+                onChange={handleChange}
+                name="username"
+                value={username}
+              />
+            </Form.Group>
+            <Form.Group>
+              <Form.Label htmlFor="password">Password:</Form.Label>
+              <Form.Control
+                type="password"
+                onChange={handleChange}
+                name="password"
+                value={password}
+              />
+            </Form.Group>
+            <Form.Group>
+              <Form.Label htmlFor="email">Email address:</Form.Label>
+              <Form.Control
+                type="email"
+                onChange={handleChange}
+                name="email"
+                value={email}
+              />
+            </Form.Group>
+            <Button variant='btn-lg btn-dark' className='mt-3' type="submit">Submit</Button>
+          </Form>
+        </Modal.Body>
+    </Modal>
   );
 }
 
