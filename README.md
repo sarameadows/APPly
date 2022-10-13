@@ -22,4 +22,4 @@ Hunting for a job is easier when you’re organized. Keep track of all your appl
 
 
 ## Made by
-Sara Meadows, Louie Moretty, Dustin Pezley, Finn Stitcher
+Sara Meadows, Louie Moretti, Dustin Pezley, Finn Stitcher
