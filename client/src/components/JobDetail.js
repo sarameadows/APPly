@@ -6,13 +6,12 @@ import Row from 'react-bootstrap/Row';
 import Dropdown from 'react-bootstrap/Dropdown';
 import InputGroup from 'react-bootstrap/InputGroup';
 import { useQuery, useMutation } from '@apollo/client';
-import { GET_ME } from '../utils/queries';
+import { GET_ME, GET_NOTES } from '../utils/queries';
 import { useState } from 'react';
 import { UPDATE_JOB, REMOVE_JOB } from '../utils/mutations';
 
 const JobDetail = (currentJob, onClose, isModalOpen, setJobs, jobs) => {
-  const {data} = useQuery(GET_ME);
-  // object destructuring for a query, not array destructuring!
+  const {data, loading} = useQuery(GET_NOTES);
 
   const [jobFormData, setJobFormData] = useState({
     dateApplied: '',
@@ -103,6 +102,10 @@ const JobDetail = (currentJob, onClose, isModalOpen, setJobs, jobs) => {
     requirements,
     benefits,
   } = currentJob;
+
+  if (loading) {
+    return (<p>test</p>)
+  }
   return (
     <Modal
       size="lg"
@@ -252,7 +255,7 @@ const JobDetail = (currentJob, onClose, isModalOpen, setJobs, jobs) => {
             </InputGroup>
           </Col>
         </Row>
-        {/* <Row>
+        <Row>
           <Col>
             <InputGroup>
               <InputGroup.Text id="notes-label" className="label">
@@ -262,11 +265,11 @@ const JobDetail = (currentJob, onClose, isModalOpen, setJobs, jobs) => {
                 as="textarea"
                 id="notes"
                 aria-label="Personal Notes"
-                value={data.notes.text}
+                value={data.getNotes.notes.text}
               />
             </InputGroup>
           </Col>
-        </Row> */}
+        </Row>
       </Modal.Body>
       <Modal.Footer>
         <Button variant="success" onClick={() => handleSaveSubmit()}>
