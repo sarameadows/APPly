@@ -39,8 +39,8 @@ function JobContainer(isJobEntryModalOpen, jobs, setJobs) {
   function handleInputChange(e) {
     const { name, value } = e.target;
 
-    console.log(name);
-    console.log(value);
+    console.log('name', name);
+    console.log('value', value);
     setJobFormData({ ...jobFormData, [name]: value });
   }
 
@@ -55,13 +55,13 @@ function JobContainer(isJobEntryModalOpen, jobs, setJobs) {
     }
 
     try {
-      console.log(jobFormData);
+      console.log('jobFormData', jobFormData);
       await addJob({
         variables: { jobData: { ...jobFormData } },
       });
 
-      console.log(jobs);
-      setJobs(jobs, ...jobFormData);
+      console.log('jobs', jobs);
+      setJobs(...jobs, ...jobFormData);
       handleClose();
     } catch (e) {
       console.error(e);
