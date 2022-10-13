@@ -1,7 +1,5 @@
 const {gql} = require('apollo-server-express');
 
-// requirements and benefits may need to be changed to simple strings later
-
 // no password for user in here because it should be inaccessible from the frontend
 const typeDefs = gql`
 type User {
@@ -25,8 +23,8 @@ type Job {
     pay: String
     source: String
     applicationStatus: String
-    requirements: [String]
-    benefits: [String]
+    requirements: String
+    benefits: String
 }
 
 type Link {
@@ -57,8 +55,8 @@ input JobData {
     pay: String
     source: String
     applicationStatus: String
-    requirements: [String]
-    benefits: [String]
+    requirements: String
+    benefits: String
 }
 
 type Query {
