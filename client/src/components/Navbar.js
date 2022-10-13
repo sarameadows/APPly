@@ -11,7 +11,7 @@ const NavBar = () => {
   return (
     <Navbar id="nav-bar" expand="lg">
       <Container fluid>
-        <Navbar.Brand href="/"><img style={{ width: 160, height: 50, margin: 20 }} src={require(`../assets/images/APPly.png`)} alt="" /></Navbar.Brand>
+        <Navbar.Brand href="/"><img style={{ width: 160, height: 50, marginTop: 10}} src={require(`../assets/images/APPly.png`)} alt="" /></Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav"/>
         <Navbar.Collapse id="navbar" >
           <Nav className="me-auto">
