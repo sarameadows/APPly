@@ -18,16 +18,15 @@ const Dashboard = () => {
   const [currentJob, setCurrentJob] = useState();
 
   const userData = Auth.getProfile();
+  // console.log(userData);
+  // console.log(userData.data.username);
+  const { data, loading } = useQuery(GET_ME);
+  // console.log('LOADING', loading);
+  // console.log('DATA', data);
+  const userInfo = data?.me.jobs || [] ;
+  console.log(userInfo); 
 
-  const { data, loading } = useQuery(GET_ME, {
-    variables: { username: userData.data.username },
-    onCompleted: ({ me }) => me,
-    ssr: false,
-  });
-  console.log('LOADING', loading);
-  console.log('DATA', data);
-
-  const [jobs, setJobs] = useState(data.me.jobs);
+  const [jobs, setJobs] = useState(data?.me.jobs || []);
   console.log('JOBS', jobs);
 
   const ToggleDetailModal = (job, i) => {
@@ -114,7 +113,7 @@ const Dashboard = () => {
       <NavBar />
       <div id="dashboard-container" className="d-flex">
         <div>
-          {isJobEntryModalOpen && <JobContainer onClose={ToggleEntryModal} />}
+          {isJobEntryModalOpen && <JobContainer props={isJobEntryModalOpen} onClose={ToggleEntryModal} />}
         </div>
         <div>
           {isJobDetailModalOpen && (

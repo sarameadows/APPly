@@ -21,15 +21,15 @@ const Splash = () => {
 
   return (
     <div>
-      {isLoginModalOpen && <LoginModal onClose={toggleLoginModal} />}
-      {isSignupModalOpen && <SignupModal onClose={toggleSignupModal} />}
-      <Container fluid id="splash-container">
+      {isLoginModalOpen && <LoginModal props={isLoginModalOpen} onClose={toggleLoginModal} />}
+      {isSignupModalOpen && <SignupModal props={isSignupModalOpen} onClose={toggleSignupModal} />}
+      <Container fluid id="splash-container" className='bg-light'>
         <img id="splash-logo" src={MainLogo} alt="APPly logo" />
         <ButtonGroup id="splash-btn-group" aria-label="login and signup">
-          <Button id="login-btn" onClick={() => toggleLoginModal()}>
+          <Button id="login-btn" style={{"background-color": "#011638"}} className='text-light' onClick={() => toggleLoginModal()}>
             Login
           </Button>
-          <Button id="signup-btn" onClick={() => toggleSignupModal()}>
+          <Button id="signup-btn" style={{"background-color": "#011638"}} className='text-light' onClick={() => toggleSignupModal()}>
             Signup
           </Button>
         </ButtonGroup>

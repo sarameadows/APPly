@@ -4,14 +4,23 @@ import { LOGIN } from '../utils/mutations';
 import Auth from '../utils/auth';
 import { Navigate } from 'react-router-dom';
 import './LoginModal.css';
+import {
+  Modal,
+  Form,
+  Button,
+} from 'react-bootstrap';
 
-function Login(onClose) {
+function Login(isLoginModalOpen, onClose) {
   const [formState, setFormState] = useState({
     name: '',
     email: '',
     message: '',
   });
   const { email, password } = formState;
+  const [show, setShow] = useState(isLoginModalOpen);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
   const [login, { error }] = useMutation(LOGIN);
 
@@ -35,32 +44,34 @@ function Login(onClose) {
   };
 
   return (
-    <div id="login" className="login">
-      <div className="login-box">
-        <h3>Login!</h3>
-        <form className="login-form" onSubmit={handleSubmit}>
-          <div>
-            <label htmlFor="username">Email:</label>
-            <input
-              type="email"
-              onChange={handleChange}
-              name="email"
-              value={email}
-            />
-          </div>
-          <div>
-            <label htmlFor="password">Password:</label>
-            <input
-              type="password"
-              onChange={handleChange}
-              name="password"
-              value={password}
-            />
-          </div>
-          <button type="submit">Submit</button>
-        </form>
-      </div>
-    </div>
+    <>
+      <Modal id="login" className="login" show={handleShow} onHide={handleClose} centered>
+          <Modal.Header closeButton><h1>Login!</h1></Modal.Header>
+          <Modal.Body>
+            <Form className="login-form" onSubmit={handleSubmit}>
+              <Form.Group>
+                <Form.Label htmlFor="username">Email:</Form.Label>
+                <Form.Control
+                  type="email"
+                  onChange={handleChange}
+                  name="email"
+                  value={email}
+                />
+              </Form.Group>
+              <Form.Group>
+                <Form.Label htmlFor="password">Password:</Form.Label>
+                <Form.Control
+                  type="password"
+                  onChange={handleChange}
+                  name="password"
+                  value={password}
+                />
+              </Form.Group>
+              <Button type="submit" variant='btn-lg btn-dark' className='mt-3'>Submit</Button>
+            </Form>
+          </Modal.Body>
+      </Modal>
+    </>
   );
 }
 
