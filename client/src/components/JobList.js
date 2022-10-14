@@ -18,11 +18,9 @@ const JobList = ({ jobs, onClick, setJobs }) => {
   const [removeJob] = useMutation(REMOVE_JOB);
 
   const handleDelete = async (e, _id) => {
-    e.preventDefault();
-
     try {
       await removeJob({
-        variables: e.target.key,
+        variables: _id,
       });
 
       setJobs(jobs);

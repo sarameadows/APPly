@@ -216,7 +216,7 @@ const Dashboard = () => {
             Enter a new job
           </Button>
         </div>
-        <div className="mt-3 d-flex justify-content-evenly align-items-start w-100">
+        <div className="mt-3 w-100">
           <JobList jobs={jobs} onClick={ToggleDetailModal} setJobs={setJobs} />
         </div>
       </div>
